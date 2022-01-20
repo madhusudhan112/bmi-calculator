@@ -1,13 +1,20 @@
-import 'package:bmicalculator/calculator/calculator.dart';
-import 'package:bmicalculator/screens/result_page.dart';
+import '../models/bmi_model.dart';
+import '../widgets/boxes.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../calculator/calculator.dart';
+import '../screens/result_page.dart';
 import 'package:flutter/material.dart';
 
-class AppHome extends StatefulWidget {
+class BmiPage extends StatefulWidget {
+  static const routeName = "bmi-page";
+
+  const BmiPage({Key? key}) : super(key: key);
+
   @override
-  State<AppHome> createState() => _AppHome();
+  State<BmiPage> createState() => _BmiPageState();
 }
 
-class _AppHome extends State<AppHome> {
+class _BmiPageState extends State<BmiPage> {
   double height = 150.0;
   int weight = 10;
   int age = 10;
@@ -41,15 +48,51 @@ class _AppHome extends State<AppHome> {
   }
 
   @override
+  void dispose() {
+    Hive.box('bmi').close();
+    super.dispose();
+  }
+
+  Future addBmi(String bmi, String result) async {
+    BmiModel _bmi_model = BmiModel();
+    _bmi_model.bmi = bmi;
+    _bmi_model.result = result;
+
+    final box = Boxes.getBmi();
+    box.add(_bmi_model);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        backgroundColor: Colors.grey[300],
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black,
+          ),
+        ),
+      ),
       body: Container(
         height: size.height,
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const Text(
+              "Calculate Your BMI",
+              style: TextStyle(fontSize: 30),
+            ),
             Row(
               children: [
                 GridTile(
@@ -57,7 +100,7 @@ class _AppHome extends State<AppHome> {
                     height: 180,
                     width: 180,
                     margin:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
                     child: Card(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -99,7 +142,7 @@ class _AppHome extends State<AppHome> {
                     height: 180,
                     width: 180,
                     margin:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 3),
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
                     child: Card(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -108,10 +151,7 @@ class _AppHome extends State<AppHome> {
                             "Weight (In Kg)",
                             style: TextStyle(fontSize: 18),
                           ),
-                          Text(
-                            "$weight",
-                            style: const TextStyle(fontSize: 28),
-                          ),
+                          Text("$weight", style: const TextStyle(fontSize: 28)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -148,13 +188,13 @@ class _AppHome extends State<AppHome> {
               child: Card(
                 child: Column(
                   children: [
-                   const  Text(
+                    const Text(
                       "Height",
                       style: TextStyle(
                         fontSize: 30,
                       ),
                     ),
-                  const   SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -166,7 +206,7 @@ class _AppHome extends State<AppHome> {
                             style: const TextStyle(
                               fontSize: 28,
                             )),
-                       const  Text(
+                        const Text(
                           'CM',
                         )
                       ],
@@ -204,8 +244,12 @@ class _AppHome extends State<AppHome> {
               style: ElevatedButton.styleFrom(
                   primary: Colors.purpleAccent, fixedSize: const Size(250, 50)),
               onPressed: () {
-                Calculate_bmi calc =
-                    Calculate_bmi(height: height, weight: weight);
+                Calculate_bmi calc = Calculate_bmi(
+                  height: height,
+                  weight: weight,
+                  age: age,
+                );
+                addBmi(calc.bmi_calculator(), calc.result1());
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => ResultPage(
@@ -217,6 +261,7 @@ class _AppHome extends State<AppHome> {
               },
               child: const Text("Calculate"),
             ),
+
           ],
         ),
       ),
