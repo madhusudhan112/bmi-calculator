@@ -2,20 +2,23 @@ import 'dart:math';
 
 class Calculate_bmi {
   double height;
+  int age;
   int weight;
-  double? _bmi;
+  double? bmi;
+  double? bf;
 
-  Calculate_bmi({required this.height, required this.weight});
+  Calculate_bmi({required this.height, required this.weight, required this.age});
 
   String bmi_calculator() {
-    _bmi = weight / pow(height / 100, 2);
-    return _bmi!.toStringAsFixed(1);
+    bmi = weight / pow(height / 100, 2);
+    return bmi!.toStringAsFixed(1);
   }
 
+
   String result1() {
-    if (_bmi! >= 25) {
+    if (bmi! >= 25) {
       return "OVERWEIGHT";
-    } else if (_bmi! > 18.5) {
+    } else if (bmi! > 18.5) {
       return "NORMAL WEIGHT";
     } else {
       return "UNDERWEIGHT";
@@ -23,9 +26,9 @@ class Calculate_bmi {
   }
 
   String result2() {
-    if (_bmi! >= 25) {
+    if (bmi! >= 25) {
       return 'YOU HAVE OVERWEIGHT BODY NEED HEAVY EXCERCISE';
-    } else if (_bmi! > 18.5) {
+    } else if (bmi! > 18.5) {
       return 'YOU HAVE NORMAL BODY NEED LEAST EXCERCISE';
     } else {
       return 'YOU HAVE UNDERWEIGHED BODY NEED TO EAT A BIT MORE';
