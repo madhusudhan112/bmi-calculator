@@ -1,34 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bmi_model.dart';
+part of 'bf_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BmiModelAdapter extends TypeAdapter<BmiModel> {
+class BfmodelAdapter extends TypeAdapter<Bfmodel> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  BmiModel read(BinaryReader reader) {
+  Bfmodel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return BmiModel()
-      ..bmi = fields[0] as String
-      ..result = fields[1] as String;
+    return Bfmodel()
+      ..bf = fields[1] as String
+      ..createdDate = fields[2] as DateTime;
   }
 
   @override
-  void write(BinaryWriter writer, BmiModel obj) {
+  void write(BinaryWriter writer, Bfmodel obj) {
     writer
       ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.bmi)
       ..writeByte(1)
-      ..write(obj.result);
+      ..write(obj.bf)
+      ..writeByte(2)
+      ..write(obj.createdDate);
   }
 
   @override
@@ -37,7 +37,7 @@ class BmiModelAdapter extends TypeAdapter<BmiModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BmiModelAdapter &&
+      other is BfmodelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

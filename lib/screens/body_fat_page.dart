@@ -1,3 +1,7 @@
+import 'package:bmicalculator/box_hive/boxes.dart';
+import 'package:bmicalculator/models/bf_model/bf_model.dart';
+import 'package:hive/hive.dart';
+
 import '../calculator/body_fat_calculator.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +20,20 @@ class _BodyFatPageState extends State<BodyFatPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _bmiController = TextEditingController();
+
+  @override
+  void dispose() {
+    Hive.box('bfmodel').close();
+    super.dispose();
+  }
+
+  Future addBf(String bf) async {
+    final _bf = Bfmodel()
+      ..bf = bf
+      ..createdDate = DateTime.now();
+    final box = Boxes.getBf();
+    box.add(_bf);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +111,11 @@ class _BodyFatPageState extends State<BodyFatPage> {
                     primary: Colors.purpleAccent,
                     fixedSize: const Size(250, 50)),
                 onPressed: () {
-                  print(_ageController.text.runtimeType);
-                  print(_bmiController.text.runtimeType);
-                  print(_ageController.text);
-                  print(_bmiController.text);
-
                   BodyFatCalculator calc = BodyFatCalculator(
-                    age: int.parse(_ageController.text) ,
+                    age: int.parse(_ageController.text),
                     bmi: double.parse(_bmiController.text),
                   );
+                  addBf(calc.bfcalulator().toString());
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => BodyFatResultPage(
