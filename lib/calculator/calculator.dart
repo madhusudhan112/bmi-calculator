@@ -7,13 +7,13 @@ class Calculate_bmi {
   double? bmi;
   double? bf;
 
-  Calculate_bmi({required this.height, required this.weight, required this.age});
+  Calculate_bmi(
+      {required this.height, required this.weight, required this.age});
 
   String bmi_calculator() {
     bmi = weight / pow(height / 100, 2);
     return bmi!.toStringAsFixed(1);
   }
-
 
   String result1() {
     if (bmi! >= 25) {
