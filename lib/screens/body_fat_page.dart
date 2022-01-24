@@ -85,8 +85,6 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           validator: (val) {
                             if (val == "" || val == null) {
                               return "Age Shall not be Empty";
-                            } else if (val.length >= 4) {
-                              return "Please Provide Valid Bmi";
                             } else if (int.parse(val).isNegative) {
                               return "Bmi cant be Negative";
                             } else if (int.parse(val) == 0) {
@@ -97,7 +95,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         TextFormField(
                           controller: _bmiController,
                           keyboardType: const TextInputType.numberWithOptions(
-                              signed: false),
+                              signed: false, decimal: true),
                           decoration: InputDecoration(
                             labelText: "Your Body Mass Index",
                             border: OutlineInputBorder(
@@ -108,9 +106,8 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           validator: (val) {
                             if (val == "" || val == null) {
                               return "Bmi Shall not be Empty";
-                            } else if (val.length >= 4) {
-                              return "Please Provide Valid Bmi";
-                            } else if (int.parse(val).isNegative) {
+                            } else if (val.length >= 5) {
+                            } else if (double.parse(val).isNegative) {
                               return "Bmi cant be Negative";
                             }
                           },
