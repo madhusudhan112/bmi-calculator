@@ -122,20 +122,6 @@ class ResultPage extends StatelessWidget {
               },
               child: const Text("Done"),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 4,
-                primary: const Color(0xff5086F2),
-                fixedSize: const Size(250, 40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pushNamed(BmiList.routeName);
-              },
-              child: const Text("See List"),
-            ),
           ],
         ),
       ),
