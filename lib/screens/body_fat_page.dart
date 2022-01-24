@@ -71,7 +71,10 @@ class _BodyFatPageState extends State<BodyFatPage> {
                       children: [
                         TextFormField(
                           controller: _ageController,
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            signed: false,
+                            decimal: false,
+                          ),
                           decoration: InputDecoration(
                             labelText: "Your Age",
                             border: OutlineInputBorder(
@@ -82,12 +85,19 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           validator: (val) {
                             if (val == "" || val == null) {
                               return "Age Shall not be Empty";
+                            } else if (val.length >= 4) {
+                              return "Please Provide Valid Bmi";
+                            } else if (int.parse(val).isNegative) {
+                              return "Bmi cant be Negative";
+                            } else if (int.parse(val) == 0) {
+                              return "Age cant be 0";
                             }
                           },
                         ),
                         TextFormField(
                           controller: _bmiController,
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false),
                           decoration: InputDecoration(
                             labelText: "Your Body Mass Index",
                             border: OutlineInputBorder(
@@ -98,6 +108,10 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           validator: (val) {
                             if (val == "" || val == null) {
                               return "Bmi Shall not be Empty";
+                            } else if (val.length >= 4) {
+                              return "Please Provide Valid Bmi";
+                            } else if (int.parse(val).isNegative) {
+                              return "Bmi cant be Negative";
                             }
                           },
                         ),
@@ -111,19 +125,21 @@ class _BodyFatPageState extends State<BodyFatPage> {
                     primary: Colors.purpleAccent,
                     fixedSize: const Size(250, 50)),
                 onPressed: () {
-                  BodyFatCalculator calc = BodyFatCalculator(
-                    age: int.parse(_ageController.text),
-                    bmi: double.parse(_bmiController.text),
-                  );
-                  addBf(calc.bfcalulator().toString());
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => BodyFatResultPage(
-                        score: calc.bfcalulator(),
-                        result: calc.result(),
+                  if (_formKey.currentState!.validate()) {
+                    BodyFatCalculator calc = BodyFatCalculator(
+                      age: int.parse(_ageController.text),
+                      bmi: double.parse(_bmiController.text),
+                    );
+                    addBf(calc.bfcalulator().toString());
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => BodyFatResultPage(
+                          score: calc.bfcalulator(),
+                          result: calc.result(),
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
                 },
                 child: const Text("Calculate"),
               ),

@@ -1,7 +1,6 @@
 import 'package:bmicalculator/box_hive/boxes.dart';
 import 'package:bmicalculator/models/bmi_model/bmi_model.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:intl/intl.dart';
 import '../screens/body_fat_page.dart';
 import '../widgets/border_box.dart';
 import '../screens/bmi_page.dart';
@@ -157,7 +156,7 @@ class Dashboard extends StatelessWidget {
                         ...box.values,
                       ],
                       xValueMapper: (Bmimodel bmiData, _) =>
-                          bmiData.createdDate,
+                          DateFormat.Hm().format(bmiData.createdDate),
                       yValueMapper: (Bmimodel bmiData, _) =>
                           double.parse(bmiData.bmi),
                     )
