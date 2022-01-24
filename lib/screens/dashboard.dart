@@ -1,9 +1,12 @@
-import 'package:flutter/rendering.dart';
+import 'package:bmicalculator/box_hive/boxes.dart';
+import 'package:bmicalculator/models/bmi_model/bmi_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../screens/body_fat_page.dart';
 import '../widgets/border_box.dart';
 import '../screens/bmi_page.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Dashboard extends StatelessWidget {
   Dashboard({Key? key}) : super(key: key);
@@ -12,6 +15,9 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final box = Boxes.getBmi();
+
     return Scaffold(
       drawer: const Drawer(
         child: DrawerHeader(
@@ -132,6 +138,30 @@ class Dashboard extends StatelessWidget {
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
+                ),
+              ),
+            ),
+            Container(
+              height: size.height / 3.2,
+              width: size.width / 0.2,
+              margin: const EdgeInsets.only(top: 20),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: SfCartesianChart(
+                  primaryXAxis: CategoryAxis(),
+                  series: <ChartSeries>[
+                    LineSeries<Bmimodel, dynamic>(
+                      dataSource: [
+                        ...box.values,
+                      ],
+                      xValueMapper: (Bmimodel bmiData, _) =>
+                          bmiData.createdDate,
+                      yValueMapper: (Bmimodel bmiData, _) =>
+                          double.parse(bmiData.bmi),
+                    )
+                  ],
                 ),
               ),
             ),
