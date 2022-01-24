@@ -1,3 +1,4 @@
+import 'package:bmicalculator/screens/bmi_list.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
@@ -116,9 +117,24 @@ class ResultPage extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed("/");
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: const Text("Done"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 4,
+                primary: const Color(0xff5086F2),
+                fixedSize: const Size(250, 40),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(BmiList.routeName);
+              },
+              child: const Text("See List"),
             ),
           ],
         ),

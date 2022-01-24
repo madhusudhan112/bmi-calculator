@@ -143,7 +143,7 @@ class _BmiPageState extends State<BmiPage> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(
                                   children: [
                                     TextFormField(
@@ -216,7 +216,7 @@ class _BmiPageState extends State<BmiPage> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(
                                   children: [
                                     TextFormField(
