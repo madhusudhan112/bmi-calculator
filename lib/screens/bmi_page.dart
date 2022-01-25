@@ -93,7 +93,7 @@ class _BmiPageState extends State<BmiPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
           automaticallyImplyLeading: false,
           title: IconButton(
@@ -106,51 +106,70 @@ class _BmiPageState extends State<BmiPage> {
             ),
           ),
         ),
-        body: Container(
-          height: size.height,
-          color: Theme.of(context).primaryColor,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-          ),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Text(
-                    "BMI Calculator",
-                    style: TextStyle(fontSize: 30),
+        body: Stack(
+          children: [
+            Container(
+              alignment: Alignment.topCenter,
+              height: size.height / 4.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: size.height / 4.5,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    children: [
-                      GridTile(
-                        child: Container(
-                          height: 180,
-                          width: 160,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 2),
-                          child: Card(
-                            color: Theme.of(context).primaryColor,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text(
-                                  "Age (In Year)",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Column(
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "BMI Calculator",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Wrap(
+                      children: [
+                        GridTile(
+                          child: Container(
+                            height: 180,
+                            width: 160,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 2),
+                            child: Card(
+                              color: Theme.of(context).primaryColor,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  const Text(
+                                    "Age (In Year)",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Column(
                                     children: [
                                       TextFormField(
+                                        textAlign: TextAlign.center,
                                         keyboardType: const TextInputType
                                             .numberWithOptions(
                                           signed: false,
@@ -159,9 +178,6 @@ class _BmiPageState extends State<BmiPage> {
                                         style: const TextStyle(fontSize: 28),
                                         controller: _ageController,
                                         decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                          ),
                                           border: InputBorder.none,
                                           errorStyle:
                                               TextStyle(color: Colors.red),
@@ -170,10 +186,10 @@ class _BmiPageState extends State<BmiPage> {
                                           if (val == "" || val == null) {
                                             return "Age Shall not be Empty";
                                           } else if (val.length >= 4) {
-                                            return "Please Provide Valid Bmi";
+                                            return "Please Provide Valid Age";
                                           } else if (int.parse(val)
                                               .isNegative) {
-                                            return "Bmi cant be Negative";
+                                            return "Age cant be Negative";
                                           } else if (int.parse(val) == 0) {
                                             return "Age cant be 0";
                                           }
@@ -185,73 +201,68 @@ class _BmiPageState extends State<BmiPage> {
                                       )
                                     ],
                                   ),
-                                ),
-                                Wrap(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          Theme.of(context).backgroundColor,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          minusAge();
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.minus,
-                                          size: 15,
+                                  Wrap(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            minusAge();
+                                          },
+                                          icon: const Icon(
+                                            FontAwesomeIcons.minus,
+                                            size: 15,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 35,
-                                    ),
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          Theme.of(context).backgroundColor,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          addAge();
-                                        },
-                                        icon: const Icon(Icons.add),
+                                      const SizedBox(
+                                        width: 35,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            addAge();
+                                          },
+                                          icon: const Icon(Icons.add),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      GridTile(
-                        child: Container(
-                          height: 180,
-                          width: 160,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 5),
-                          child: Card(
-                            color: Theme.of(context).primaryColor,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text(
-                                  "Weight (In Kg)",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Column(
+                        GridTile(
+                          child: Container(
+                            height: 180,
+                            width: 160,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                            child: Card(
+                              color: Theme.of(context).primaryColor,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  const Text(
+                                    "Weight (In Kg)",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Column(
                                     children: [
                                       TextFormField(
+                                        textAlign: TextAlign.center,
                                         keyboardType: TextInputType.number,
                                         style: const TextStyle(fontSize: 28),
                                         controller: _weightController,
                                         decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                          ),
                                           border: InputBorder.none,
                                           errorStyle:
                                               TextStyle(color: Colors.red),
@@ -277,87 +288,84 @@ class _BmiPageState extends State<BmiPage> {
                                       )
                                     ],
                                   ),
-                                ),
-                                Wrap(
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          Theme.of(context).backgroundColor,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          minusWeight();
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.minus,
-                                          size: 15,
+                                  Wrap(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            minusWeight();
+                                          },
+                                          icon: const Icon(
+                                            FontAwesomeIcons.minus,
+                                            size: 15,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 35,
-                                    ),
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          Theme.of(context).backgroundColor,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          addWeight();
-                                        },
-                                        icon: const Icon(Icons.add),
+                                      const SizedBox(
+                                        width: 35,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: size.height / 4,
-                    width: size.width / 0.2,
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Card(
-                      color: Theme.of(context).primaryColor,
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0)),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(
-                              "Height",
-                              style: TextStyle(
-                                fontSize: 30,
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            addWeight();
+                                          },
+                                          icon: const Icon(Icons.add),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text("CM"),
-                          Wrap(
-                            children: <Widget>[
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 130),
-                                    child: TextFormField(
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: size.height / 4,
+                      width: size.width / 0.2,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Card(
+                        color: Theme.of(context).primaryColor,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0)),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Height",
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text("CM"),
+                            Wrap(
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    TextFormField(
+                                      textAlign: TextAlign.center,
                                       controller: _heightController,
                                       decoration: const InputDecoration(
                                         border: InputBorder.none,
                                         contentPadding:
-                                            EdgeInsets.only(left: 20),
+                                            EdgeInsets.only(left: 8.0),
                                         errorStyle:
                                             TextStyle(color: Colors.red),
                                       ),
@@ -377,174 +385,177 @@ class _BmiPageState extends State<BmiPage> {
                                         }
                                       },
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    width: 100,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10.0),
-                                      child: Divider(
-                                        height: 20,
-                                        thickness: 1.5,
-                                        color: Color(0xff5086F2),
+                                    const SizedBox(
+                                      width: 100,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 10.0),
+                                        child: Divider(
+                                          height: 20,
+                                          thickness: 1.5,
+                                          color: Color(0xff5086F2),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Flexible(
-                              child: SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              thumbColor: const Color(0xff5E7EBF),
-                              thumbShape: const RoundSliderThumbShape(
-                                  enabledThumbRadius: 15.0),
-                              overlayShape: const RoundSliderOverlayShape(
-                                  overlayRadius: 30.0),
-                              activeTrackColor: const Color(0xff4E7CD9),
-                              overlayColor: const Color(0xff5E7EBF),
+                                  ],
+                                ),
+                              ],
                             ),
-                            child: Slider(
-                              value: height,
-                              min: 120.0,
-                              max: 220.0,
-                              inactiveColor: Colors.grey,
-                              onChanged: (double value) {
-                                setState(
-                                  () {
-                                    height = value;
-                                    _heightController.text =
-                                        height.toStringAsFixed(2);
-                                  },
-                                );
+                            Flexible(
+                                child: SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                thumbColor: const Color(0xff5E7EBF),
+                                thumbShape: const RoundSliderThumbShape(
+                                    enabledThumbRadius: 15.0),
+                                overlayShape: const RoundSliderOverlayShape(
+                                    overlayRadius: 30.0),
+                                activeTrackColor: const Color(0xff4E7CD9),
+                                overlayColor: const Color(0xff5E7EBF),
+                              ),
+                              child: Slider(
+                                value: height,
+                                min: 120.0,
+                                max: 220.0,
+                                inactiveColor: Colors.grey,
+                                onChanged: (double value) {
+                                  setState(
+                                    () {
+                                      height = value;
+                                      _heightController.text =
+                                          height.toStringAsFixed(2);
+                                    },
+                                  );
+                                },
+                              ),
+                            ))
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                      children: [
+                        Container(
+                          height: size.height / 6,
+                          width: size.width / 2.5,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 3),
+                          child: Card(
+                            color: male_tapped
+                                ? const Color(0xffC4D4F2)
+                                : Theme.of(context).primaryColor,
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                            child: ListTile(
+                              onTap: () {
+                                setState(() {
+                                  male_tapped = !male_tapped;
+                                  female_tapped = false;
+                                });
+                              },
+                              title: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  "Male",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Image.asset(
+                                  "assets/images/male.png",
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: size.height / 6,
+                          width: size.width / 2.5,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 3),
+                          child: Card(
+                            color: female_tapped
+                                ? const Color(0xffC4D4F2)
+                                : Theme.of(context).primaryColor,
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              side: BorderSide.none,
+                            ),
+                            child: ListTile(
+                              title: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  "Female",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Image.asset(
+                                  "assets/images/female.png",
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  female_tapped = !female_tapped;
+                                  male_tapped = false;
+                                });
                               },
                             ),
-                          ))
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    children: [
-                      Container(
-                        height: size.height / 6,
-                        width: size.width / 2.5,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 3),
-                        child: Card(
-                          color: male_tapped
-                              ? const Color(0xffC4D4F2)
-                              : Theme.of(context).primaryColor,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0)),
-                          child: ListTile(
-                            onTap: () {
-                              setState(() {
-                                male_tapped = !male_tapped;
-                                female_tapped = false;
-                              });
-                            },
-                            title: const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                              child: Text(
-                                "Male",
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Image.asset(
-                                "assets/images/male.png",
-                                width: 30,
-                                height: 30,
-                              ),
-                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: size.height / 6,
-                        width: size.width / 2.5,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 3),
-                        child: Card(
-                          color: female_tapped
-                              ? const Color(0xffC4D4F2)
-                              : Theme.of(context).primaryColor,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: BorderSide.none,
-                          ),
-                          child: ListTile(
-                            title: const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                              child: Text(
-                                "Female",
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Image.asset(
-                                "assets/images/female.png",
-                                width: 30,
-                                height: 30,
-                              ),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                female_tapped = !female_tapped;
-                                male_tapped = false;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xff5086F2),
-                      fixedSize: const Size(250, 50),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0)),
-                      elevation: 8,
+                      ],
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        weight = int.parse(_weightController.text);
-                        age = int.parse(_ageController.text);
-                        Calculate_bmi calc = Calculate_bmi(
-                          height: height,
-                          weight: weight,
-                          age: age,
-                        );
-                        addBmi(calc.bmi_calculator());
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => ResultPage(
-                              score: calc.bmi_calculator(),
-                              result: calc.result1(),
-                              result2: calc.result2(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xff5086F2),
+                        fixedSize: const Size(250, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        elevation: 8,
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          weight = int.parse(_weightController.text);
+                          age = int.parse(_ageController.text);
+                          Calculate_bmi calc = Calculate_bmi(
+                            height: height,
+                            weight: weight,
+                            age: age,
+                          );
+                          addBmi(calc.bmi_calculator());
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ResultPage(
+                                score: calc.bmi_calculator(),
+                                result: calc.result1(),
+                                result2: calc.result2(),
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text("Calculate"),
-                  ),
-                ],
+                          );
+                        }
+                      },
+                      child: const Text("Calculate"),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

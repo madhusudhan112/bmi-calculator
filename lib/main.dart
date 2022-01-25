@@ -43,7 +43,7 @@ class BmiCalculator extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       routes: {
-        "/": (ctx) => Dashboard(),
+        "/": (ctx) => const Dashboard(),
         BmiPage.routeName: (ctx) => const BmiPage(),
         BodyFatPage.routeName: (ctx) => const BodyFatPage(),
         BmiList.routeName: (ctx) => BmiList(),
