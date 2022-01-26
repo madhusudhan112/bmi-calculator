@@ -19,8 +19,10 @@ class BodyFatPage extends StatefulWidget {
 
 class _BodyFatPageState extends State<BodyFatPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _bmiController = TextEditingController();
+  final TextEditingController _ageController =
+      TextEditingController(text: "10");
+  final TextEditingController _bmiController =
+      TextEditingController(text: "10");
 
   @override
   void dispose() {
@@ -86,12 +88,26 @@ class _BodyFatPageState extends State<BodyFatPage> {
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+            ),
+          ),
+        ),
         backgroundColor: Theme.of(context).primaryColor,
         body: Stack(
+          alignment: Alignment.topCenter,
           children: [
             Container(
-              alignment: Alignment.topCenter,
-              height: size.height / 3.2,
+              height: size.height / 3.5,
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: const BorderRadius.only(
@@ -103,7 +119,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: size.height / 3.2,
+                height: size.height / 3.5,
                 decoration: BoxDecoration(
                   color: Theme.of(context).backgroundColor,
                   borderRadius: const BorderRadius.only(
@@ -118,24 +134,28 @@ class _BodyFatPageState extends State<BodyFatPage> {
                 key: _formKey,
                 child: Container(
                   alignment: Alignment.topCenter,
-                  height: size.height,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20.0,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Text(
                         "Body Fat Percentage",
                         style: TextStyle(fontSize: 30),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Column(
                         children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
                           GridTile(
                             child: Container(
-                              height: size.height / 3.4,
-                              width: size.width / 1.2,
+                              height: size.height / 3.2,
+                              width: size.width / 1.8,
                               margin: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 2),
                               child: Card(
@@ -160,7 +180,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                             signed: false,
                                             decimal: false,
                                           ),
-                                          style: const TextStyle(fontSize: 28),
+                                          style: const TextStyle(fontSize: 35),
                                           controller: _ageController,
                                           decoration: const InputDecoration(
                                             border: InputBorder.none,
@@ -222,10 +242,11 @@ class _BodyFatPageState extends State<BodyFatPage> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10),
                           GridTile(
                             child: Container(
-                              height: size.height / 3.4,
-                              width: size.width / 1.2,
+                              height: size.height / 3.2,
+                              width: size.width / 1.8,
                               margin: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 5),
                               child: Card(
@@ -248,7 +269,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           keyboardType: const TextInputType
                                                   .numberWithOptions(
                                               signed: false, decimal: true),
-                                          style: const TextStyle(fontSize: 28),
+                                          style: const TextStyle(fontSize: 35),
                                           controller: _bmiController,
                                           decoration: const InputDecoration(
                                             border: InputBorder.none,
@@ -311,6 +332,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: const Color(0xff5086F2),

@@ -16,7 +16,9 @@ class Calculate_bmi {
   }
 
   String result1() {
-    if (bmi! >= 25) {
+    if (bmi!.isNegative) {
+      return "Bmi Can't be Negetaive";
+    } else if (bmi! >= 25) {
       return "OVERWEIGHT";
     } else if (bmi! > 18.5) {
       return "NORMAL WEIGHT";
@@ -26,7 +28,9 @@ class Calculate_bmi {
   }
 
   String result2() {
-    if (bmi! >= 25) {
+    if (bmi!.isNegative) {
+      return "Please Provide Valid Information";
+    } else if (bmi! >= 25) {
       return 'YOU HAVE OVERWEIGHT BODY NEED HEAVY EXCERCISE';
     } else if (bmi! > 18.5) {
       return 'YOU HAVE NORMAL BODY NEED LEAST EXCERCISE';

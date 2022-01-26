@@ -107,6 +107,7 @@ class _BmiPageState extends State<BmiPage> {
           ),
         ),
         body: Stack(
+          alignment: Alignment.topCenter,
           children: [
             Container(
               alignment: Alignment.topCenter,
@@ -330,7 +331,7 @@ class _BmiPageState extends State<BmiPage> {
                     ),
                     Container(
                       height: size.height / 4,
-                      width: size.width / 0.2,
+                      width: size.width / 1.3,
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Card(
                         color: Theme.of(context).primaryColor,

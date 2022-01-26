@@ -45,10 +45,11 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Container(
                     color: Theme.of(context).primaryColor,
-                    height: size.height / 2.2,
-                    width: size.width / 0.2,
+                    height: size.height / 2.7,
+                    width: size.width / 0.4,
                     margin: const EdgeInsets.only(top: 20),
                     child: Card(
+                      elevation: 8,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -81,16 +82,16 @@ class _DashboardState extends State<Dashboard> {
                     height: 100,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: const Color(0xff5086F2),
-                            elevation: 0,
+                            elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
-                            fixedSize: const Size(180, 150)),
+                            fixedSize: const Size(125, 125)),
                         onPressed: () {
                           Navigator.of(context).pushNamed(BmiPage.routeName);
                         },
@@ -102,11 +103,11 @@ class _DashboardState extends State<Dashboard> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xff5086F2),
-                          elevation: 0,
+                          elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
-                          fixedSize: const Size(180, 150),
+                          fixedSize: const Size(125, 125),
                         ),
                         onPressed: () {
                           Navigator.of(context)
