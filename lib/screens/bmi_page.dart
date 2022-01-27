@@ -3,6 +3,7 @@ import 'package:bmicalculator/models/bmi_model/bmi_model.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../calculator/calculator.dart';
 import '../screens/result_page.dart';
 import 'package:flutter/material.dart';
@@ -92,43 +93,85 @@ class _BmiPageState extends State<BmiPage> {
         }
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+          centerTitle: true,
+          leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new,
               color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          title: RichText(
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: "BMI ",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Color(0xff025949),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                TextSpan(
+                  text: "Calculator",
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              ],
             ),
           ),
         ),
         body: Stack(
           alignment: Alignment.topCenter,
           children: [
-            Container(
-              alignment: Alignment.topCenter,
-              height: size.height / 4.5,
-              decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Image.asset(
+                "assets/images/dec.png",
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: size.height / 4.5,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(50),
-                    topLeft: Radius.circular(50),
+            Padding(
+              padding: const EdgeInsets.only(right: 35, bottom: 25),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  child: IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.arrowRight,
+                      color: Color(0xff025949),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        weight = int.parse(_weightController.text);
+                        age = int.parse(_ageController.text);
+                        Calculate_bmi calc = Calculate_bmi(
+                          height: height,
+                          weight: weight,
+                          age: age,
+                        );
+                        addBmi(calc.bmi_calculator());
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => ResultPage(
+                              score: calc.bmi_calculator(),
+                              result: calc.result1(),
+                              result2: calc.result2(),
+                            ),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ),
@@ -137,299 +180,22 @@ class _BmiPageState extends State<BmiPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Text(
-                      "BMI Calculator",
-                      style: TextStyle(fontSize: 30),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                      child: Text(
+                          "Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. Use the tool below to compute yours"),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Wrap(
-                      children: [
-                        GridTile(
-                          child: Container(
-                            height: 180,
-                            width: 160,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 2),
-                            child: Card(
-                              color: Theme.of(context).primaryColor,
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.0)),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text(
-                                    "Age (In Year)",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  Column(
-                                    children: [
-                                      TextFormField(
-                                        textAlign: TextAlign.center,
-                                        keyboardType: const TextInputType
-                                            .numberWithOptions(
-                                          signed: false,
-                                          decimal: false,
-                                        ),
-                                        style: const TextStyle(fontSize: 28),
-                                        controller: _ageController,
-                                        decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          errorStyle:
-                                              TextStyle(color: Colors.red),
-                                        ),
-                                        validator: (val) {
-                                          if (val == "" || val == null) {
-                                            return "Age Shall not be Empty";
-                                          } else if (val.length >= 4) {
-                                            return "Please Provide Valid Age";
-                                          } else if (int.parse(val)
-                                              .isNegative) {
-                                            return "Age cant be Negative";
-                                          } else if (int.parse(val) == 0) {
-                                            return "Age cant be 0";
-                                          }
-                                        },
-                                      ),
-                                      const Divider(
-                                        thickness: 1.5,
-                                        color: Color(0xff5086F2),
-                                      )
-                                    ],
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).backgroundColor,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            minusAge();
-                                          },
-                                          icon: const Icon(
-                                            FontAwesomeIcons.minus,
-                                            size: 15,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 35,
-                                      ),
-                                      CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).backgroundColor,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            addAge();
-                                          },
-                                          icon: const Icon(Icons.add),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        GridTile(
-                          child: Container(
-                            height: 180,
-                            width: 160,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 5),
-                            child: Card(
-                              color: Theme.of(context).primaryColor,
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.0)),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text(
-                                    "Weight (In Kg)",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  Column(
-                                    children: [
-                                      TextFormField(
-                                        textAlign: TextAlign.center,
-                                        keyboardType: TextInputType.number,
-                                        style: const TextStyle(fontSize: 28),
-                                        controller: _weightController,
-                                        decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          errorStyle:
-                                              TextStyle(color: Colors.red),
-                                        ),
-                                        validator: (val) {
-                                          if (val == "" || val == null) {
-                                            return "Weight Shall not be Empty";
-                                          } else if (val.length >= 4) {
-                                            return "Please Provide Valid Weight";
-                                          } else if (int.parse(val)
-                                              .isNegative) {
-                                            return "Weight cant be Negative";
-                                          } else if (int.parse(val) == 0) {
-                                            return "Weight cant be 0";
-                                          } else if (int.parse(val) > 250) {
-                                            return "Please Provide Valid Weight";
-                                          }
-                                        },
-                                      ),
-                                      const Divider(
-                                        thickness: 1.5,
-                                        color: Color(0xff5086F2),
-                                      )
-                                    ],
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).backgroundColor,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            minusWeight();
-                                          },
-                                          icon: const Icon(
-                                            FontAwesomeIcons.minus,
-                                            size: 15,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 35,
-                                      ),
-                                      CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).backgroundColor,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            addWeight();
-                                          },
-                                          icon: const Icon(Icons.add),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: size.height / 4,
-                      width: size.width / 1.3,
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Card(
-                        color: Theme.of(context).primaryColor,
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0)),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                "Height",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text("CM"),
-                            Wrap(
-                              children: <Widget>[
-                                Column(
-                                  children: [
-                                    TextFormField(
-                                      textAlign: TextAlign.center,
-                                      controller: _heightController,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        contentPadding:
-                                            EdgeInsets.only(left: 8.0),
-                                        errorStyle:
-                                            TextStyle(color: Colors.red),
-                                      ),
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                      ),
-                                      validator: (val) {
-                                        if (val == "" || val == null) {
-                                          return "Height Shall not be Empty";
-                                        } else if (double.parse(val)
-                                            .isNegative) {
-                                          return "Height cant be Negative";
-                                        } else if (double.parse(val) == 0) {
-                                          return "Height cant be 0";
-                                        } else if (double.parse(val) > 255) {
-                                          return "Please Provide Valid Height";
-                                        }
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(left: 10.0),
-                                        child: Divider(
-                                          height: 20,
-                                          thickness: 1.5,
-                                          color: Color(0xff5086F2),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Flexible(
-                                child: SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                thumbColor: const Color(0xff5E7EBF),
-                                thumbShape: const RoundSliderThumbShape(
-                                    enabledThumbRadius: 15.0),
-                                overlayShape: const RoundSliderOverlayShape(
-                                    overlayRadius: 30.0),
-                                activeTrackColor: const Color(0xff4E7CD9),
-                                overlayColor: const Color(0xff5E7EBF),
-                              ),
-                              child: Slider(
-                                value: height,
-                                min: 120.0,
-                                max: 220.0,
-                                inactiveColor: Colors.grey,
-                                onChanged: (double value) {
-                                  setState(
-                                    () {
-                                      height = value;
-                                      _heightController.text =
-                                          height.toStringAsFixed(2);
-                                    },
-                                  );
-                                },
-                              ),
-                            ))
-                          ],
-                        ),
+                    const SizedBox(height: 20),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 240),
+                      child: Text(
+                        "Gender",
+                        style: TextStyle(
+                            color: Color(0xff025949),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                     const SizedBox(
@@ -438,13 +204,21 @@ class _BmiPageState extends State<BmiPage> {
                     Wrap(
                       children: [
                         Container(
-                          height: size.height / 6,
+                          height: size.height / 13,
                           width: size.width / 2.5,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(.5),
+                                blurRadius: 62.0, // soften the shadow
+                              )
+                            ],
+                          ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 5, vertical: 3),
                           child: Card(
                             color: male_tapped
-                                ? const Color(0xffC4D4F2)
+                                ? const Color(0xff025949)
                                 : Theme.of(context).primaryColor,
                             elevation: 4,
                             shape: RoundedRectangleBorder(
@@ -456,33 +230,41 @@ class _BmiPageState extends State<BmiPage> {
                                   female_tapped = false;
                                 });
                               },
-                              title: const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  "Male",
-                                  textAlign: TextAlign.center,
+                              title: Text(
+                                "Male",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: male_tapped
+                                      ? Colors.white
+                                      : const Color(0xff025949),
                                 ),
                               ),
-                              subtitle: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: Image.asset(
-                                  "assets/images/male.png",
-                                  width: 30,
-                                  height: 30,
-                                ),
+                              leading: Icon(
+                                Icons.male,
+                                size: 40,
+                                color: male_tapped
+                                    ? Colors.white
+                                    : const Color(0xff025949),
                               ),
                             ),
                           ),
                         ),
                         Container(
-                          height: size.height / 6,
+                          height: size.height / 13,
                           width: size.width / 2.5,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(.5),
+                                blurRadius: 62.0, // soften the shadow
+                              )
+                            ],
+                          ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 5, vertical: 3),
                           child: Card(
                             color: female_tapped
-                                ? const Color(0xffC4D4F2)
+                                ? const Color(0xff025949)
                                 : Theme.of(context).primaryColor,
                             elevation: 4,
                             shape: RoundedRectangleBorder(
@@ -490,21 +272,21 @@ class _BmiPageState extends State<BmiPage> {
                               side: BorderSide.none,
                             ),
                             child: ListTile(
-                              title: const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  "Female",
-                                  textAlign: TextAlign.center,
+                              title: Text(
+                                "Female",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: female_tapped
+                                      ? Colors.white
+                                      : const Color(0xff025949),
                                 ),
                               ),
-                              subtitle: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: Image.asset(
-                                  "assets/images/female.png",
-                                  width: 30,
-                                  height: 30,
-                                ),
+                              leading: Icon(
+                                Icons.female,
+                                size: 40,
+                                color: female_tapped
+                                    ? Colors.white
+                                    : const Color(0xff025949),
                               ),
                               onTap: () {
                                 setState(() {
@@ -518,39 +300,348 @@ class _BmiPageState extends State<BmiPage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 35,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: const Color(0xff5086F2),
-                        fixedSize: const Size(250, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
+                    Wrap(
+                      children: [
+                        Container(
+                          height: size.height / 2.3,
+                          width: size.width / 3.6,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(.5),
+                                blurRadius: 52.0, // soften the shadow
+                              )
+                            ],
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Card(
+                            color: Theme.of(context).primaryColor,
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  "Height(cm)",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff025949),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: SliderTheme(
+                                    data: SliderTheme.of(context).copyWith(
+                                      thumbColor: const Color(0xff025949),
+                                      thumbShape: const RoundSliderThumbShape(
+                                          enabledThumbRadius: 10.0),
+                                      overlayShape:
+                                          const RoundSliderOverlayShape(
+                                              overlayRadius: 30.0),
+                                      activeTrackColor: const Color(0xff025949),
+                                      overlayColor: const Color(0xff025949),
+                                    ),
+                                    child: SfSlider.vertical(
+                                      activeColor: const Color(0xff025949),
+                                      value: height,
+                                      min: 120.0,
+                                      max: 220.0,
+                                      inactiveColor: Colors.grey,
+                                      onChanged: (value) {
+                                        setState(
+                                          () {
+                                            height = value;
+                                            _heightController.text =
+                                                height.toStringAsFixed(2);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(.5),
+                                        blurRadius: 52.0, // soften the shadow
+                                      )
+                                    ],
+                                  ),
+                                  width: size.width / 5.2,
+                                  height: size.height / 28,
+                                  child: Card(
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.99),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    elevation: 4,
+                                    child: TextFormField(
+                                      style: const TextStyle(
+                                          color: Color(0xff025949),
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                        signed: false,
+                                        decimal: false,
+                                      ),
+                                      controller: _heightController,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        errorStyle:
+                                            TextStyle(color: Colors.red),
+                                      ),
+                                      validator: (val) {
+                                        if (val == "" || val == null) {
+                                          return "Height Shall not be Empty";
+                                        } else if (double.parse(val)
+                                            .isNegative) {
+                                          return "Height cant be Negative";
+                                        } else if (double.parse(val) == 0) {
+                                          return "Height cant be 0";
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                        elevation: 8,
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          weight = int.parse(_weightController.text);
-                          age = int.parse(_ageController.text);
-                          Calculate_bmi calc = Calculate_bmi(
-                            height: height,
-                            weight: weight,
-                            age: age,
-                          );
-                          addBmi(calc.bmi_calculator());
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => ResultPage(
-                                score: calc.bmi_calculator(),
-                                result: calc.result1(),
-                                result2: calc.result2(),
+                        const SizedBox(
+                          width: 35,
+                        ),
+                        Column(
+                          children: [
+                            GridTile(
+                              child: Container(
+                                height: 180,
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(.5),
+                                      blurRadius: 52.0, // soften the shadow
+                                    )
+                                  ],
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 2),
+                                child: Card(
+                                  color: Theme.of(context).primaryColor,
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(25.0)),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Text(
+                                        "Age (In Year)",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Color(0xff025949),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          TextFormField(
+                                            textAlign: TextAlign.center,
+                                            keyboardType: const TextInputType
+                                                .numberWithOptions(
+                                              signed: false,
+                                              decimal: false,
+                                            ),
+                                            style: const TextStyle(
+                                              fontSize: 28,
+                                              color: Color(0xff025949),
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            controller: _ageController,
+                                            decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              errorStyle:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            validator: (val) {
+                                              if (val == "" || val == null) {
+                                                return "Age Shall not be Empty";
+                                              } else if (val.length >= 4) {
+                                                return "Please Provide Valid Age";
+                                              } else if (int.parse(val)
+                                                  .isNegative) {
+                                                return "Age cant be Negative";
+                                              } else if (int.parse(val) == 0) {
+                                                return "Age cant be 0";
+                                              }
+                                            },
+                                          ),
+                                          const Divider(
+                                            thickness: 1.5,
+                                            color: Color(0xff025949),
+                                          )
+                                        ],
+                                      ),
+                                      Wrap(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor:
+                                                const Color(0xff025949),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                minusAge();
+                                              },
+                                              icon: const Icon(
+                                                FontAwesomeIcons.minus,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 35,
+                                          ),
+                                          CircleAvatar(
+                                            backgroundColor:
+                                                const Color(0xff025949),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                addAge();
+                                              },
+                                              icon: const Icon(Icons.add),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          );
-                        }
-                      },
-                      child: const Text("Calculate"),
+                            GridTile(
+                              child: Container(
+                                height: 180,
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(.5),
+                                      blurRadius: 62.0, // soften the shadow
+                                      //extend the shadow
+                                    )
+                                  ],
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 5),
+                                child: Card(
+                                  color: Theme.of(context).primaryColor,
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(25.0)),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      const Text(
+                                        "Weight (In Kg)",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Color(0xff025949),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          TextFormField(
+                                            textAlign: TextAlign.center,
+                                            keyboardType: TextInputType.number,
+                                            style: const TextStyle(
+                                              fontSize: 28,
+                                              color: Color(0xff025949),
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            controller: _weightController,
+                                            decoration: const InputDecoration(
+                                              border: InputBorder.none,
+                                              errorStyle:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                            validator: (val) {
+                                              if (val == "" || val == null) {
+                                                return "Weight Shall not be Empty";
+                                              } else if (val.length >= 4) {
+                                                return "Please Provide Valid Weight";
+                                              } else if (int.parse(val)
+                                                  .isNegative) {
+                                                return "Weight cant be Negative";
+                                              } else if (int.parse(val) == 0) {
+                                                return "Weight cant be 0";
+                                              } else if (int.parse(val) > 250) {
+                                                return "Please Provide Valid Weight";
+                                              }
+                                            },
+                                          ),
+                                          const Divider(
+                                            thickness: 1.5,
+                                            color: Color(0xff025949),
+                                          )
+                                        ],
+                                      ),
+                                      Wrap(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor:
+                                                const Color(0xff025949),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                minusWeight();
+                                              },
+                                              icon: const Icon(
+                                                FontAwesomeIcons.minus,
+                                                size: 15,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 35,
+                                          ),
+                                          CircleAvatar(
+                                            backgroundColor:
+                                                const Color(0xff025949),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                addWeight();
+                                              },
+                                              icon: const Icon(Icons.add),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                   ],
                 ),

@@ -16,42 +16,29 @@ class BodyFatResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
+          "Your Result",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Container(
-            alignment: Alignment.topCenter,
-            height: size.height / 3.4,
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              ),
-            ),
-          ),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: size.height / 3.4,
-              decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(50),
-                  topLeft: Radius.circular(50),
-                ),
-              ),
-            ),
-          ),
+              alignment: Alignment.bottomRight,
+              child: Image.asset("assets/images/dec.png")),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "Your Result",
-                style: TextStyle(fontSize: 28),
-              ),
               Container(
                 height: size.height / 3,
                 width: size.width / 1.2,
@@ -78,11 +65,15 @@ class BodyFatResultPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: CircleAvatar(
+                            backgroundColor: const Color(0xff025949),
                             radius: 70,
                             child: Text(
                               score.toStringAsFixed(2),
                               style: const TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.w500),
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -100,6 +91,9 @@ class BodyFatResultPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 35,
               ),
               Container(
                 height: size.height / 8,
@@ -122,10 +116,13 @@ class BodyFatResultPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 35,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 4,
-                  primary: const Color(0xff5086F2),
+                  primary: const Color(0xff025949),
                   fixedSize: const Size(250, 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
