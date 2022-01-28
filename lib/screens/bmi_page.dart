@@ -182,30 +182,32 @@ class _BmiPageState extends State<BmiPage> {
                 child: Column(
                   children: [
                     const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
                       child: Text(
                           "Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. Use the tool below to compute yours"),
                     ),
-                    const SizedBox(height: 20),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 240),
-                      child: Text(
-                        "Gender",
-                        style: TextStyle(
-                            color: Color(0xff025949),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
                     const SizedBox(
-                      height: 10,
+                      height: 5,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 45, vertical: 5),
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Gender",
+                          style: TextStyle(
+                              color: Color(0xff025949),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ),
                     Wrap(
                       children: [
                         Container(
                           height: size.height / 13,
-                          width: size.width / 2.5,
+                          width: size.width / 2.3,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -241,7 +243,7 @@ class _BmiPageState extends State<BmiPage> {
                               ),
                               leading: Icon(
                                 Icons.male,
-                                size: 40,
+                                size: 25,
                                 color: male_tapped
                                     ? Colors.white
                                     : const Color(0xff025949),
@@ -251,7 +253,7 @@ class _BmiPageState extends State<BmiPage> {
                         ),
                         Container(
                           height: size.height / 13,
-                          width: size.width / 2.5,
+                          width: size.width / 2.3,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -283,7 +285,7 @@ class _BmiPageState extends State<BmiPage> {
                               ),
                               leading: Icon(
                                 Icons.female,
-                                size: 40,
+                                size: 25,
                                 color: female_tapped
                                     ? Colors.white
                                     : const Color(0xff025949),
@@ -300,7 +302,7 @@ class _BmiPageState extends State<BmiPage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 35,
+                      height: 10,
                     ),
                     Wrap(
                       children: [
@@ -374,8 +376,8 @@ class _BmiPageState extends State<BmiPage> {
                                       )
                                     ],
                                   ),
-                                  width: size.width / 5.2,
-                                  height: size.height / 28,
+                                  width: size.width / 4.8,
+                                  height: size.height / 24,
                                   child: Card(
                                     color: Theme.of(context)
                                         .primaryColor
@@ -418,14 +420,14 @@ class _BmiPageState extends State<BmiPage> {
                           ),
                         ),
                         const SizedBox(
-                          width: 35,
+                          width: 25,
                         ),
                         Column(
                           children: [
                             GridTile(
                               child: Container(
-                                height: 180,
-                                width: 160,
+                                height: size.height / 4.8,
+                                width: size.width / 2.6,
                                 decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -530,8 +532,8 @@ class _BmiPageState extends State<BmiPage> {
                             ),
                             GridTile(
                               child: Container(
-                                height: 180,
-                                width: 160,
+                                height: size.height / 4.8,
+                                width: size.width / 2.6,
                                 decoration: BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
