@@ -32,50 +32,43 @@ class _DashboardState extends State<Dashboard> {
       body: RefreshIndicator(
         key: _refreshKey,
         child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Container(
               color: Theme.of(context).primaryColor,
-              height: size.height,
-              width: size.width,
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 50,
+              ),
+              margin: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    color: Theme.of(context).primaryColor,
-                    height: size.height / 2.7,
-                    width: size.width / 0.4,
-                    margin: const EdgeInsets.only(top: 20),
-                    child: Card(
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        series: <ChartSeries>[
-                          LineSeries<Bmimodel, dynamic>(
-                            dataSource: [
-                              ...bmibox.values,
-                            ],
-                            xValueMapper: (Bmimodel bmiData, _) =>
-                                DateFormat.Hm().format(bmiData.createdDate),
-                            yValueMapper: (Bmimodel bmiData, _) =>
-                                double.parse(bmiData.bmi),
-                          ),
-                          LineSeries<Bfmodel, dynamic>(
-                            dataSource: [
-                              ...bfbox.values,
-                            ],
-                            xValueMapper: (Bfmodel bfdata, _) =>
-                                DateFormat.Hm().format(bfdata.createdDate),
-                            yValueMapper: (Bfmodel bfdata, _) =>
-                                double.parse(bfdata.bf),
-                          )
-                        ],
-                      ),
+                  Card(
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SfCartesianChart(
+                      primaryXAxis: CategoryAxis(),
+                      series: <ChartSeries>[
+                        LineSeries<Bmimodel, dynamic>(
+                          dataSource: [
+                            ...bmibox.values,
+                          ],
+                          xValueMapper: (Bmimodel bmiData, _) =>
+                              DateFormat.Hm().format(bmiData.createdDate),
+                          yValueMapper: (Bmimodel bmiData, _) =>
+                              double.parse(bmiData.bmi),
+                        ),
+                        LineSeries<Bfmodel, dynamic>(
+                          dataSource: [
+                            ...bfbox.values,
+                          ],
+                          xValueMapper: (Bfmodel bfdata, _) =>
+                              DateFormat.Hm().format(bfdata.createdDate),
+                          yValueMapper: (Bfmodel bfdata, _) =>
+                              double.parse(bfdata.bf),
+                        )
+                      ],
                     ),
                   ),
                   const SizedBox(
@@ -86,7 +79,7 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: const Color(0xff5086F2),
+                            primary: const Color(0xff025949),
                             elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
@@ -102,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff5086F2),
+                          primary: const Color(0xff025949),
                           elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -119,8 +112,15 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 68.2),
+              child: Align(
+                child: Image.asset("assets/images/dec.png"),
+                alignment: Alignment.bottomRight,
               ),
             ),
           ],

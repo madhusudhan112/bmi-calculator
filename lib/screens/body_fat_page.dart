@@ -203,7 +203,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         children: [
                           Container(
                             height: size.height / 13,
-                            width: size.width / 2.5,
+                            width: size.width / 2.3,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 5, vertical: 3),
                             decoration: BoxDecoration(
@@ -240,7 +240,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                 ),
                                 leading: Icon(
                                   Icons.male,
-                                  size: 40,
+                                  size: 25,
                                   color: male_tapped
                                       ? Colors.white
                                       : const Color(0xff025949),
@@ -250,7 +250,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           ),
                           Container(
                             height: size.height / 13,
-                            width: size.width / 2.5,
+                            width: size.width / 2.3,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -282,7 +282,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                 ),
                                 leading: Icon(
                                   Icons.female,
-                                  size: 40,
+                                  size: 25,
                                   color: female_tapped
                                       ? Colors.white
                                       : const Color(0xff025949),
@@ -299,12 +299,12 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 35,
+                        height: 20,
                       ),
                       GridTile(
                         child: Container(
                           height: size.height / 4.8,
-                          width: size.width / 2,
+                          width: size.width / 2.3,
                           margin: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 2),
                           decoration: BoxDecoration(
@@ -399,11 +399,10 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
                       GridTile(
                         child: Container(
                           height: size.height / 4.8,
-                          width: size.width / 2,
+                          width: size.width / 2.3,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -423,7 +422,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 const Text(
-                                  "Body Mass Index (BMI)",
+                                  "Body Mass Index",
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Color(0xff025949),
