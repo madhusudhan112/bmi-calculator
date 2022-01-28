@@ -21,8 +21,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     final bmibox = Boxes.getBmi();
     final bfbox = Boxes.getBf();
 
@@ -32,7 +30,6 @@ class _DashboardState extends State<Dashboard> {
       body: RefreshIndicator(
         key: _refreshKey,
         child: ListView(
-          physics: const NeverScrollableScrollPhysics(),
           children: [
             Container(
               color: Theme.of(context).primaryColor,

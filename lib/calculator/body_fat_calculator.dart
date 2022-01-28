@@ -14,6 +14,9 @@ class BodyFatCalculator {
   }
 
   String result() {
+    if (bf! > 100) {
+      return "Error";
+    }
     if (bf!.isNegative) {
       return "You might have given invalid values, Body Fat Cant be Negative";
     } else {
@@ -22,6 +25,9 @@ class BodyFatCalculator {
   }
 
   String result2() {
+    if (bf! >= 100) {
+      return "Error";
+    }
     if (bf!.isNegative) {
       return "Body Fat cant be Negative";
     } else if (bf! <= 8) {

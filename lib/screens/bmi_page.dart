@@ -156,7 +156,7 @@ class _BmiPageState extends State<BmiPage> {
                         weight = int.parse(_weightController.text);
                         age = int.parse(_ageController.text);
                         Calculate_bmi calc = Calculate_bmi(
-                          height: height,
+                          height: double.parse(_heightController.text),
                           weight: weight,
                           age: age,
                         );
@@ -340,8 +340,6 @@ class _BmiPageState extends State<BmiPage> {
                                   child: SliderTheme(
                                     data: SliderTheme.of(context).copyWith(
                                       thumbColor: const Color(0xff025949),
-                                      thumbShape: const RoundSliderThumbShape(
-                                          enabledThumbRadius: 10.0),
                                       overlayShape:
                                           const RoundSliderOverlayShape(
                                               overlayRadius: 30.0),
@@ -357,6 +355,8 @@ class _BmiPageState extends State<BmiPage> {
                                       onChanged: (value) {
                                         setState(
                                           () {
+                                            height = double.parse(
+                                                _heightController.text);
                                             height = value;
                                             _heightController.text =
                                                 height.toStringAsFixed(2);

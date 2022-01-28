@@ -16,6 +16,9 @@ class Calculate_bmi {
   }
 
   String result1() {
+    if (bmi! >= 60) {
+      return "Error";
+    }
     if (bmi!.isNegative) {
       return "Bmi Can't be Negetaive";
     } else if (bmi! >= 25) {
@@ -28,7 +31,9 @@ class Calculate_bmi {
   }
 
   String result2() {
-    if (bmi!.isNegative) {
+    if (bmi! >= 60) {
+      return "Error Please enter valid age, height and weight";
+    } else if (bmi!.isNegative) {
       return "Please Provide Valid Information";
     } else if (bmi! >= 25) {
       return 'YOU HAVE OVERWEIGHT BODY NEED HEAVY EXCERCISE';

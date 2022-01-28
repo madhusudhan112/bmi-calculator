@@ -15,6 +15,7 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    double bmiscore = double.parse(score);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -68,13 +69,23 @@ class ResultPage extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundColor: const Color(0xff025949),
                             radius: 70,
-                            child: Text(
-                              score,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                            child: bmiscore > 60
+                                ? const Text(
+                                    "Error",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )
+                                : Text(
+                                    bmiscore.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                           ),
                         ),
                         const SizedBox(
