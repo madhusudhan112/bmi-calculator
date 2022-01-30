@@ -3,7 +3,7 @@ import 'dart:math';
 class Calculate_bmi {
   double height;
   int age;
-  int weight;
+  double weight;
   double? bmi;
   double? bf;
 

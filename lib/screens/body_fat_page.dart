@@ -79,10 +79,12 @@ class _BodyFatPageState extends State<BodyFatPage> {
 
   bool male_tapped = false;
   bool female_tapped = false;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode cf = FocusScope.of(context);
@@ -91,6 +93,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
         }
       },
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -149,12 +152,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                     ),
                     onPressed: () {
                       if (male_tapped == false && female_tapped == false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        _scaffoldKey.currentState!.showSnackBar(
                           const SnackBar(
                             backgroundColor: Colors.red,
-                            duration: Duration(
-                              seconds: 1,
-                            ),
                             content: Text("Please Select Your Gender"),
                           ),
                         );
@@ -286,7 +286,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                               ),
                               child: ListTile(
                                 title: Align(
-                                  alignment: Alignment(-1.9, -0.2),
+                                  alignment: const Alignment(-1.9, -0.2),
                                   child: Text(
                                     "Female",
                                     style: TextStyle(
@@ -368,9 +368,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                       ),
                                       validator: (val) {
                                         if (val == "" || val == null) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -382,9 +382,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           );
                                           return error as String;
                                         } else if (val.length > 3) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -396,9 +396,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           );
                                           return error as String;
                                         } else if (int.parse(val).isNegative) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -410,9 +410,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           );
                                           return error as String;
                                         } else if (int.parse(val) == 0) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -512,9 +512,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                       ),
                                       validator: (val) {
                                         if (val == "" || val == null) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -526,9 +526,9 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           );
                                           return error as String;
                                         } else if (val.length > 4) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -539,10 +539,11 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                             ),
                                           );
                                           return error as String;
-                                        } else if (int.parse(val).isNegative) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                        } else if (double.parse(val)
+                                            .isNegative) {
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -553,10 +554,10 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                             ),
                                           );
                                           return error as String;
-                                        } else if (int.parse(val) == 0) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                        } else if (double.parse(val) == 0) {
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(

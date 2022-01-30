@@ -19,12 +19,12 @@ class BmiPage extends StatefulWidget {
 
 class _BmiPageState extends State<BmiPage> {
   double height = 150.0;
-  int weight = 10;
+  double weight = 10;
   int age = 10;
 
   addWeight() {
     setState(() {
-      weight = int.parse(_weightController.text);
+      weight = double.parse(_weightController.text);
       weight++;
       _weightController.text = weight.toString();
     });
@@ -33,7 +33,7 @@ class _BmiPageState extends State<BmiPage> {
   minusWeight() {
     setState(() {
       if (weight > 0) {
-        weight = int.parse(_weightController.text);
+        weight = double.parse(_weightController.text);
         weight--;
         _weightController.text = weight.toString();
       }
@@ -81,7 +81,7 @@ class _BmiPageState extends State<BmiPage> {
   bool male_tapped = false;
   bool female_tapped = false;
   final _formKey = GlobalKey<FormState>();
-
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -93,6 +93,7 @@ class _BmiPageState extends State<BmiPage> {
         }
       },
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
@@ -153,17 +154,14 @@ class _BmiPageState extends State<BmiPage> {
                     ),
                     onPressed: () {
                       if (male_tapped == false && female_tapped == false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        _scaffoldKey.currentState!.showSnackBar(
                           const SnackBar(
-                            duration: Duration(
-                              seconds: 1,
-                            ),
                             backgroundColor: Colors.red,
-                            content: Text("Please Select You Gender"),
+                            content: Text("Please Select Your Gender"),
                           ),
                         );
                       } else if (_formKey.currentState!.validate()) {
-                        weight = int.parse(_weightController.text);
+                        weight = double.parse(_weightController.text);
                         age = int.parse(_ageController.text);
                         Calculate_bmi calc = Calculate_bmi(
                           height: double.parse(_heightController.text),
@@ -373,8 +371,6 @@ class _BmiPageState extends State<BmiPage> {
                                       onChanged: (value) {
                                         setState(
                                           () {
-                                            height = double.parse(
-                                                _heightController.text);
                                             height = value;
                                             _heightController.text =
                                                 height.toStringAsFixed(2);
@@ -422,9 +418,9 @@ class _BmiPageState extends State<BmiPage> {
                                       ),
                                       validator: (val) {
                                         if (val == "" || val == null) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -437,9 +433,9 @@ class _BmiPageState extends State<BmiPage> {
                                           return error as String;
                                         } else if (double.parse(val)
                                             .isNegative) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -451,9 +447,9 @@ class _BmiPageState extends State<BmiPage> {
                                           );
                                           return error as String;
                                         } else if (double.parse(val) == 0) {
-                                          final error =
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
                                             const SnackBar(
                                               backgroundColor: Colors.red,
                                               duration: Duration(
@@ -532,10 +528,9 @@ class _BmiPageState extends State<BmiPage> {
                                             ),
                                             validator: (val) {
                                               if (val == "" || val == null) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -547,10 +542,9 @@ class _BmiPageState extends State<BmiPage> {
                                                 );
                                                 return error as String;
                                               } else if (val.length > 3) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -563,10 +557,9 @@ class _BmiPageState extends State<BmiPage> {
                                                 return error as String;
                                               } else if (int.parse(val)
                                                   .isNegative) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -578,10 +571,9 @@ class _BmiPageState extends State<BmiPage> {
                                                 );
                                                 return error as String;
                                               } else if (int.parse(val) == 0) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -687,26 +679,25 @@ class _BmiPageState extends State<BmiPage> {
                                             ),
                                             validator: (val) {
                                               if (val == "" || val == null) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
                                                       seconds: 1,
                                                     ),
                                                     content: Text(
-                                                        "Weight Shall not be Empty"),
+                                                      "Weight Shall not be Empty",
+                                                    ),
                                                   ),
                                                 );
                                                 return error as String;
                                               } else if (double.parse(val) >=
                                                   250) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -719,10 +710,9 @@ class _BmiPageState extends State<BmiPage> {
                                                 return error as String;
                                               } else if (double.parse(val)
                                                   .isNegative) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
@@ -735,10 +725,9 @@ class _BmiPageState extends State<BmiPage> {
                                                 return error as String;
                                               } else if (double.parse(val) ==
                                                   0) {
-                                                final error =
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
+                                                final error = _scaffoldKey
+                                                    .currentState!
+                                                    .showSnackBar(
                                                   const SnackBar(
                                                     backgroundColor: Colors.red,
                                                     duration: Duration(
