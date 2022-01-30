@@ -460,6 +460,20 @@ class _BmiPageState extends State<BmiPage> {
                                             ),
                                           );
                                           return error as String;
+                                        } else if (double.parse(val) > 300) {
+                                          final error = _scaffoldKey
+                                              .currentState!
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(
+                                                seconds: 1,
+                                              ),
+                                              content: Text(
+                                                  "Please Provide Valid Height"),
+                                            ),
+                                          );
+                                          return error as String;
                                         }
                                       },
                                     ),

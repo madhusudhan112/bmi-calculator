@@ -18,7 +18,7 @@ class BodyFatCalculator {
       return "Error";
     }
     if (bf!.isNegative) {
-      return "You might have given invalid values, Body Fat Cant be Negative";
+      return "Body Fat cant be Negative";
     } else {
       return "Your Body Fat Percentage is " + bf!.toStringAsFixed(1);
     }
@@ -29,7 +29,7 @@ class BodyFatCalculator {
       return "Error";
     }
     if (bf!.isNegative) {
-      return "Body Fat cant be Negative";
+      return "You might have given invalid values, Body Fat Cant be Negative";
     } else if (bf! <= 8) {
       return "You have much lower body fat take a good care or consult your doctor";
     } else if (bf! >= 30) {

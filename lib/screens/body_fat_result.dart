@@ -40,7 +40,7 @@ class BodyFatResultPage extends StatelessWidget {
           Column(
             children: [
               Container(
-                height: size.height / 3,
+                height: size.height / 2.7,
                 width: size.width / 1.2,
                 padding: const EdgeInsets.all(5.0),
                 child: Card(
