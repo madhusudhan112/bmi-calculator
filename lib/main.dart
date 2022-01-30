@@ -26,12 +26,10 @@ Future main() async {
 
   await Hive.openBox<Bfmodel>('bfmodel');
 
-  runApp(const BmiCalculator());
+  runApp(BmiCalculator());
 }
 
 class BmiCalculator extends StatelessWidget {
-  const BmiCalculator({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
