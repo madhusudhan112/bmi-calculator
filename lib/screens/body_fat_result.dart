@@ -67,14 +67,32 @@ class BodyFatResultPage extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundColor: const Color(0xff025949),
                             radius: 70,
-                            child: Text(
-                              score.toStringAsFixed(2),
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
+                            child: score > 100
+                                ? const Text(
+                                    "Error",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : score.isNegative
+                                    ? const Text(
+                                        "Error",
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        score.toStringAsFixed(2),
+                                        style: const TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                           ),
                         ),
                         const SizedBox(
