@@ -76,14 +76,23 @@ class BodyFatResultPage extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                   )
-                                : Text(
-                                    score.toStringAsFixed(2),
-                                    style: const TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                : score.isNegative
+                                    ? const Text(
+                                        "Error",
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Text(
+                                        score.toStringAsFixed(2),
+                                        style: const TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                           ),
                         ),
                         const SizedBox(

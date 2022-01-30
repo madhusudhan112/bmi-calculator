@@ -29,96 +29,98 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Theme.of(context).primaryColor,
       body: RefreshIndicator(
         key: _refreshKey,
-        child: ListView(
+        child: Stack(
           children: [
-            Container(
-              color: Theme.of(context).primaryColor,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 50,
-              ),
-              margin: const EdgeInsets.only(top: 100),
-              child: Column(
-                children: [
-                  Card(
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(),
-                      series: <ChartSeries>[
-                        LineSeries<Bmimodel, dynamic>(
-                          dataSource: [
-                            ...bmibox.values,
-                          ],
-                          xValueMapper: (Bmimodel bmiData, _) =>
-                              DateFormat.Hm().format(bmiData.createdDate),
-                          yValueMapper: (Bmimodel bmiData, _) =>
-                              double.parse(bmiData.bmi),
-                        ),
-                        LineSeries<Bfmodel, dynamic>(
-                          dataSource: [
-                            ...bfbox.values,
-                          ],
-                          xValueMapper: (Bfmodel bfdata, _) =>
-                              DateFormat.Hm().format(bfdata.createdDate),
-                          yValueMapper: (Bfmodel bfdata, _) =>
-                              double.parse(bfdata.bf),
-                        )
-                      ],
-                    ),
+            ListView(
+              children: [
+                Container(
+                  color: Theme.of(context).primaryColor,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 50,
                   ),
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  margin: const EdgeInsets.only(top: 100),
+                  child: Column(
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color(0xff025949),
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                      Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          series: <ChartSeries>[
+                            LineSeries<Bmimodel, dynamic>(
+                              dataSource: [
+                                ...bmibox.values,
+                              ],
+                              xValueMapper: (Bmimodel bmiData, _) =>
+                                  DateFormat.Hm().format(bmiData.createdDate),
+                              yValueMapper: (Bmimodel bmiData, _) =>
+                                  double.parse(bmiData.bmi),
                             ),
-                            fixedSize: const Size(125, 125)),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(BmiPage.routeName);
-                        },
-                        child: const Text(
-                          "Body Mass Index",
-                          textAlign: TextAlign.center,
+                            LineSeries<Bfmodel, dynamic>(
+                              dataSource: [
+                                ...bfbox.values,
+                              ],
+                              xValueMapper: (Bfmodel bfdata, _) =>
+                                  DateFormat.Hm().format(bfdata.createdDate),
+                              yValueMapper: (Bfmodel bfdata, _) =>
+                                  double.parse(bfdata.bf),
+                            )
+                          ],
                         ),
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xff025949),
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: const Color(0xff025949),
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                fixedSize: const Size(125, 125)),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(BmiPage.routeName);
+                            },
+                            child: const Text(
+                              "Body Mass Index",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          fixedSize: const Size(125, 125),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(BodyFatPage.routeName);
-                        },
-                        child: const Text(
-                          "Body Fat Percentage",
-                          textAlign: TextAlign.center,
-                        ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xff025949),
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              fixedSize: const Size(125, 125),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(BodyFatPage.routeName);
+                            },
+                            child: const Text(
+                              "Body Fat Percentage",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 68.2),
-              child: Align(
-                child: Image.asset("assets/images/dec.png"),
-                alignment: Alignment.bottomRight,
-              ),
+            Align(
+              child: Image.asset("assets/images/dec.png"),
+              alignment: Alignment.bottomRight,
             ),
           ],
         ),

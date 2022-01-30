@@ -152,7 +152,17 @@ class _BmiPageState extends State<BmiPage> {
                       color: Color(0xff025949),
                     ),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (male_tapped == false && female_tapped == false) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(
+                              seconds: 1,
+                            ),
+                            backgroundColor: Colors.red,
+                            content: Text("Please Select You Gender"),
+                          ),
+                        );
+                      } else if (_formKey.currentState!.validate()) {
                         weight = int.parse(_weightController.text);
                         age = int.parse(_ageController.text);
                         Calculate_bmi calc = Calculate_bmi(
@@ -206,7 +216,7 @@ class _BmiPageState extends State<BmiPage> {
                     Wrap(
                       children: [
                         Container(
-                          height: size.height / 13,
+                          height: size.height / 12,
                           width: size.width / 2.3,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -232,18 +242,22 @@ class _BmiPageState extends State<BmiPage> {
                                   female_tapped = false;
                                 });
                               },
-                              title: Text(
-                                "Male",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: male_tapped
-                                      ? Colors.white
-                                      : const Color(0xff025949),
+                              title: Align(
+                                alignment: const Alignment(-1.5, -0.2),
+                                child: Text(
+                                  "Male",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: male_tapped
+                                        ? Colors.white
+                                        : const Color(0xff025949),
+                                  ),
                                 ),
                               ),
                               leading: Icon(
                                 Icons.male,
-                                size: 25,
+                                size: 30,
                                 color: male_tapped
                                     ? Colors.white
                                     : const Color(0xff025949),
@@ -252,7 +266,7 @@ class _BmiPageState extends State<BmiPage> {
                           ),
                         ),
                         Container(
-                          height: size.height / 13,
+                          height: size.height / 12,
                           width: size.width / 2.3,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -274,18 +288,22 @@ class _BmiPageState extends State<BmiPage> {
                               side: BorderSide.none,
                             ),
                             child: ListTile(
-                              title: Text(
-                                "Female",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: female_tapped
-                                      ? Colors.white
-                                      : const Color(0xff025949),
+                              title: Align(
+                                alignment: const Alignment(-1.9, -0.2),
+                                child: Text(
+                                  "Female",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: female_tapped
+                                        ? Colors.white
+                                        : const Color(0xff025949),
+                                  ),
                                 ),
                               ),
                               leading: Icon(
                                 Icons.female,
-                                size: 25,
+                                size: 30,
                                 color: female_tapped
                                     ? Colors.white
                                     : const Color(0xff025949),
@@ -404,12 +422,48 @@ class _BmiPageState extends State<BmiPage> {
                                       ),
                                       validator: (val) {
                                         if (val == "" || val == null) {
-                                          return "Height Shall not be Empty";
+                                          final error =
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(
+                                                seconds: 1,
+                                              ),
+                                              content: Text(
+                                                  "Height shall not be empty"),
+                                            ),
+                                          );
+                                          return error as String;
                                         } else if (double.parse(val)
                                             .isNegative) {
-                                          return "Height cant be Negative";
+                                          final error =
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(
+                                                seconds: 1,
+                                              ),
+                                              content: Text(
+                                                  "Height can't be negative"),
+                                            ),
+                                          );
+                                          return error as String;
                                         } else if (double.parse(val) == 0) {
-                                          return "Height cant be 0";
+                                          final error =
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              duration: Duration(
+                                                seconds: 1,
+                                              ),
+                                              content:
+                                                  Text("Height can't be 0"),
+                                            ),
+                                          );
+                                          return error as String;
                                         }
                                       },
                                     ),
@@ -478,14 +532,66 @@ class _BmiPageState extends State<BmiPage> {
                                             ),
                                             validator: (val) {
                                               if (val == "" || val == null) {
-                                                return "Age Shall not be Empty";
-                                              } else if (val.length >= 4) {
-                                                return "Please Provide Valid Age";
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Age Shall not be Empty"),
+                                                  ),
+                                                );
+                                                return error as String;
+                                              } else if (val.length > 3) {
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Please Provide Valid Age"),
+                                                  ),
+                                                );
+                                                return error as String;
                                               } else if (int.parse(val)
                                                   .isNegative) {
-                                                return "Age cant be Negative";
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Age cant be Negative"),
+                                                  ),
+                                                );
+                                                return error as String;
                                               } else if (int.parse(val) == 0) {
-                                                return "Age cant be 0";
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content:
+                                                        Text("Age cant be 0"),
+                                                  ),
+                                                );
+                                                return error as String;
                                               }
                                             },
                                           ),
@@ -581,16 +687,68 @@ class _BmiPageState extends State<BmiPage> {
                                             ),
                                             validator: (val) {
                                               if (val == "" || val == null) {
-                                                return "Weight Shall not be Empty";
-                                              } else if (val.length >= 4) {
-                                                return "Please Provide Valid Weight";
-                                              } else if (int.parse(val)
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Weight Shall not be Empty"),
+                                                  ),
+                                                );
+                                                return error as String;
+                                              } else if (double.parse(val) >=
+                                                  250) {
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Please Provide Valid Weight"),
+                                                  ),
+                                                );
+                                                return error as String;
+                                              } else if (double.parse(val)
                                                   .isNegative) {
-                                                return "Weight cant be Negative";
-                                              } else if (int.parse(val) == 0) {
-                                                return "Weight cant be 0";
-                                              } else if (int.parse(val) > 250) {
-                                                return "Please Provide Valid Weight";
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Weight cant be Negative"),
+                                                  ),
+                                                );
+                                                return error as String;
+                                              } else if (double.parse(val) ==
+                                                  0) {
+                                                final error =
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                  const SnackBar(
+                                                    backgroundColor: Colors.red,
+                                                    duration: Duration(
+                                                      seconds: 1,
+                                                    ),
+                                                    content: Text(
+                                                        "Weight cant be 0"),
+                                                  ),
+                                                );
+                                                return error as String;
                                               }
                                             },
                                           ),

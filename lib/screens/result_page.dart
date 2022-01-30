@@ -78,14 +78,23 @@ class ResultPage extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   )
-                                : Text(
-                                    bmiscore.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                : bmiscore.isNegative
+                                    ? const Text(
+                                        "Error",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    : Text(
+                                        bmiscore.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                           ),
                         ),
                         const SizedBox(
