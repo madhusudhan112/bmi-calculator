@@ -92,296 +92,477 @@ class _BmiPageState extends State<BmiPage> {
           cf.unfocus();
         }
       },
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Theme.of(context).primaryColor,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          title: RichText(
-            text: const TextSpan(
-              children: [
-                TextSpan(
-                  text: "BMI ",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Color(0xff025949),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                TextSpan(
-                  text: "Calculator",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        body: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Image.asset(
-                "assets/images/dec.png",
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.black,
               ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 35, bottom: 25),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: CircleAvatar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  child: IconButton(
-                    icon: const Icon(
-                      FontAwesomeIcons.arrowRight,
+            title: RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: "BMI ",
+                    style: TextStyle(
+                      fontSize: 25,
                       color: Color(0xff025949),
+                      fontWeight: FontWeight.w500,
                     ),
-                    onPressed: () {
-                      if (male_tapped == false && female_tapped == false) {
-                        _scaffoldKey.currentState!.showSnackBar(
-                          const SnackBar(
-                            backgroundColor: Colors.red,
-                            content: Text("Please Select Your Gender"),
-                          ),
-                        );
-                      } else if (_formKey.currentState!.validate()) {
-                        weight = double.parse(_weightController.text);
-                        age = int.parse(_ageController.text);
-                        Calculate_bmi calc = Calculate_bmi(
-                          height: double.parse(_heightController.text),
-                          weight: weight,
-                          age: age,
-                        );
-                        addBmi(calc.bmi_calculator());
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => ResultPage(
-                              score: calc.bmi_calculator(),
-                              result: calc.result1(),
-                              result2: calc.result2(),
+                  ),
+                  TextSpan(
+                    text: "Calculator",
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          body: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(
+                  "assets/images/dec.png",
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 35, bottom: 25),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: IconButton(
+                      icon: const Icon(
+                        FontAwesomeIcons.arrowRight,
+                        color: Color(0xff025949),
+                      ),
+                      onPressed: () {
+                        if (male_tapped == false && female_tapped == false) {
+                          _scaffoldKey.currentState!.showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Please Select Your Gender"),
                             ),
-                          ),
-                        );
-                      }
-                    },
+                          );
+                        } else if (_formKey.currentState!.validate()) {
+                          weight = double.parse(_weightController.text);
+                          age = int.parse(_ageController.text);
+                          Calculate_bmi calc = Calculate_bmi(
+                            height: double.parse(_heightController.text),
+                            weight: weight,
+                            age: age,
+                          );
+                          var bmi = calc.bmi_calculator();
+                          if (double.parse(bmi).isNegative) {
+                            print("Bmi cant be negative");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          } else if (double.parse(bmi) > 80) {
+                            print("You Migh have given invalid values");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          } else if (double.parse(bmi) < 5) {
+                            print("You Migh have given invalid values");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          } else if (double.parse(bmi) == 0.0) {
+                            print("Bmi cant be 0 ");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          } else if (double.parse(bmi) == 0.9 ||
+                              double.parse(bmi) < 0.9) {
+                            print("You Migh have given invalid values");
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          } else {
+                            addBmi(bmi);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ResultPage(
+                                  score: calc.bmi_calculator(),
+                                  result: calc.result1(),
+                                  result2: calc.result2(),
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                        //   Navigator.of(context).push(
+                        //     MaterialPageRoute(
+                        //       builder: (_) => ResultPage(
+                        //         score: calc.bmi_calculator(),
+                        //         result: calc.result1(),
+                        //         result2: calc.result2(),
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-            SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Text(
-                          "Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. Use the tool below to compute yours"),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 45, vertical: 5),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
+              SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
                         child: Text(
-                          "Gender",
-                          style: TextStyle(
-                              color: Color(0xff025949),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600),
+                            "Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. Use the tool below to compute yours"),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 45, vertical: 5),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Gender",
+                            style: TextStyle(
+                                color: Color(0xff025949),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                       ),
-                    ),
-                    Wrap(
-                      children: [
-                        Container(
-                          height: size.height / 12,
-                          width: size.width / 2.3,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.5),
-                                blurRadius: 62.0, // soften the shadow
-                              )
-                            ],
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 3),
-                          child: Card(
-                            color: male_tapped
-                                ? const Color(0xff025949)
-                                : Theme.of(context).primaryColor,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            child: ListTile(
-                              onTap: () {
-                                setState(() {
-                                  male_tapped = !male_tapped;
-                                  female_tapped = false;
-                                });
-                              },
-                              title: Align(
-                                alignment: const Alignment(-1.5, -0.2),
-                                child: Text(
-                                  "Male",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: male_tapped
-                                        ? Colors.white
-                                        : const Color(0xff025949),
-                                  ),
-                                ),
-                              ),
-                              leading: Icon(
-                                Icons.male,
-                                size: 30,
-                                color: male_tapped
-                                    ? Colors.white
-                                    : const Color(0xff025949),
-                              ),
+                      Wrap(
+                        children: [
+                          Container(
+                            height: size.height / 12,
+                            width: size.width / 2.3,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(.5),
+                                  blurRadius: 62.0, // soften the shadow
+                                )
+                              ],
                             ),
-                          ),
-                        ),
-                        Container(
-                          height: size.height / 12,
-                          width: size.width / 2.3,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.5),
-                                blurRadius: 62.0, // soften the shadow
-                              )
-                            ],
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 3),
-                          child: Card(
-                            color: female_tapped
-                                ? const Color(0xff025949)
-                                : Theme.of(context).primaryColor,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              side: BorderSide.none,
-                            ),
-                            child: ListTile(
-                              title: Align(
-                                alignment: const Alignment(-1.9, -0.2),
-                                child: Text(
-                                  "Female",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: female_tapped
-                                        ? Colors.white
-                                        : const Color(0xff025949),
-                                  ),
-                                ),
-                              ),
-                              leading: Icon(
-                                Icons.female,
-                                size: 30,
-                                color: female_tapped
-                                    ? Colors.white
-                                    : const Color(0xff025949),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  female_tapped = !female_tapped;
-                                  male_tapped = false;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Wrap(
-                      children: [
-                        Container(
-                          height: size.height / 2.3,
-                          width: size.width / 3.6,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.5),
-                                blurRadius: 52.0, // soften the shadow
-                              )
-                            ],
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Card(
-                            color: Theme.of(context).primaryColor,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text(
-                                  "Height(cm)",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff025949),
-                                  ),
-                                ),
-                                Flexible(
-                                  child: SliderTheme(
-                                    data: SliderTheme.of(context).copyWith(
-                                      thumbColor: const Color(0xff025949),
-                                      overlayShape:
-                                          const RoundSliderOverlayShape(
-                                              overlayRadius: 30.0),
-                                      activeTrackColor: const Color(0xff025949),
-                                      overlayColor: const Color(0xff025949),
-                                    ),
-                                    child: SfSlider.vertical(
-                                      activeColor: const Color(0xff025949),
-                                      value: height,
-                                      min: 120.0,
-                                      max: 220.0,
-                                      inactiveColor: Colors.grey,
-                                      onChanged: (value) {
-                                        setState(
-                                          () {
-                                            height = value;
-                                            _heightController.text =
-                                                height.toStringAsFixed(2);
-                                          },
-                                        );
-                                      },
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 3),
+                            child: Card(
+                              color: male_tapped
+                                  ? const Color(0xff025949)
+                                  : Theme.of(context).primaryColor,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              child: ListTile(
+                                onTap: () {
+                                  setState(() {
+                                    male_tapped = !male_tapped;
+                                    female_tapped = false;
+                                  });
+                                },
+                                title: Align(
+                                  alignment: const Alignment(-1.5, -0.2),
+                                  child: Text(
+                                    "Male",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: male_tapped
+                                          ? Colors.white
+                                          : const Color(0xff025949),
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 20),
+                                leading: Icon(
+                                  Icons.male,
+                                  size: 30,
+                                  color: male_tapped
+                                      ? Colors.white
+                                      : const Color(0xff025949),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: size.height / 12,
+                            width: size.width / 2.3,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(.5),
+                                  blurRadius: 62.0, // soften the shadow
+                                )
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 3),
+                            child: Card(
+                              color: female_tapped
+                                  ? const Color(0xff025949)
+                                  : Theme.of(context).primaryColor,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide.none,
+                              ),
+                              child: ListTile(
+                                title: Align(
+                                  alignment: const Alignment(-1.9, -0.2),
+                                  child: Text(
+                                    "Female",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: female_tapped
+                                          ? Colors.white
+                                          : const Color(0xff025949),
+                                    ),
+                                  ),
+                                ),
+                                leading: Icon(
+                                  Icons.female,
+                                  size: 30,
+                                  color: female_tapped
+                                      ? Colors.white
+                                      : const Color(0xff025949),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    female_tapped = !female_tapped;
+                                    male_tapped = false;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Wrap(
+                        children: [
+                          Container(
+                            height: size.height / 2.3,
+                            width: size.width / 3.6,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(.5),
+                                  blurRadius: 52.0, // soften the shadow
+                                )
+                              ],
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Card(
+                              color: Theme.of(context).primaryColor,
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    "Height(cm)",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff025949),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: SliderTheme(
+                                      data: SliderTheme.of(context).copyWith(
+                                        thumbColor: const Color(0xff025949),
+                                        overlayShape:
+                                            const RoundSliderOverlayShape(
+                                                overlayRadius: 30.0),
+                                        activeTrackColor:
+                                            const Color(0xff025949),
+                                        overlayColor: const Color(0xff025949),
+                                      ),
+                                      child: SfSlider.vertical(
+                                        activeColor: const Color(0xff025949),
+                                        value: height,
+                                        min: 120.0,
+                                        max: 220.0,
+                                        inactiveColor: Colors.grey,
+                                        onChanged: (value) {
+                                          setState(
+                                            () {
+                                              height = value;
+                                              _heightController.text =
+                                                  height.toStringAsFixed(2);
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 20),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(.5),
+                                          blurRadius: 52.0, // soften the shadow
+                                        )
+                                      ],
+                                    ),
+                                    width: size.width / 4.8,
+                                    height: size.height / 24,
+                                    child: Card(
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.99),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      elevation: 4,
+                                      child: TextFormField(
+                                        style: const TextStyle(
+                                            color: Color(0xff025949),
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.center,
+                                        keyboardType: const TextInputType
+                                            .numberWithOptions(
+                                          signed: false,
+                                          decimal: false,
+                                        ),
+                                        controller: _heightController,
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          errorStyle:
+                                              TextStyle(color: Colors.red),
+                                        ),
+                                        validator: (val) {
+                                          if (val == "" || val == null) {
+                                            final error = _scaffoldKey
+                                                .currentState!
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                backgroundColor: Colors.red,
+                                                duration: Duration(
+                                                  seconds: 1,
+                                                ),
+                                                content: Text(
+                                                    "Height shall not be empty"),
+                                              ),
+                                            );
+                                            return error as String;
+                                          } else if (double.parse(val)
+                                              .isNegative) {
+                                            final error = _scaffoldKey
+                                                .currentState!
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                backgroundColor: Colors.red,
+                                                duration: Duration(
+                                                  seconds: 1,
+                                                ),
+                                                content: Text(
+                                                    "Height can't be negative"),
+                                              ),
+                                            );
+                                            return error as String;
+                                          } else if (double.parse(val) == 0) {
+                                            final error = _scaffoldKey
+                                                .currentState!
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                backgroundColor: Colors.red,
+                                                duration: Duration(
+                                                  seconds: 1,
+                                                ),
+                                                content:
+                                                    Text("Height can't be 0"),
+                                              ),
+                                            );
+                                            return error as String;
+                                          } else if (double.parse(val) > 300) {
+                                            final error = _scaffoldKey
+                                                .currentState!
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                backgroundColor: Colors.red,
+                                                duration: Duration(
+                                                  seconds: 1,
+                                                ),
+                                                content: Text(
+                                                    "Please Provide Valid Height"),
+                                              ),
+                                            );
+                                            return error as String;
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          Column(
+                            children: [
+                              GridTile(
+                                child: Container(
+                                  height: size.height / 4.8,
+                                  width: size.width / 2.6,
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
@@ -390,427 +571,328 @@ class _BmiPageState extends State<BmiPage> {
                                       )
                                     ],
                                   ),
-                                  width: size.width / 4.8,
-                                  height: size.height / 24,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 2),
                                   child: Card(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.99),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
+                                    color: Theme.of(context).primaryColor,
                                     elevation: 4,
-                                    child: TextFormField(
-                                      style: const TextStyle(
-                                          color: Color(0xff025949),
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.center,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                        signed: false,
-                                        decimal: false,
-                                      ),
-                                      controller: _heightController,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        errorStyle:
-                                            TextStyle(color: Colors.red),
-                                      ),
-                                      validator: (val) {
-                                        if (val == "" || val == null) {
-                                          final error = _scaffoldKey
-                                              .currentState!
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              duration: Duration(
-                                                seconds: 1,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const Text(
+                                          "Age (In Year)",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Color(0xff025949),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            TextFormField(
+                                              textAlign: TextAlign.center,
+                                              keyboardType: const TextInputType
+                                                  .numberWithOptions(
+                                                signed: false,
+                                                decimal: false,
                                               ),
-                                              content: Text(
-                                                  "Height shall not be empty"),
-                                            ),
-                                          );
-                                          return error as String;
-                                        } else if (double.parse(val)
-                                            .isNegative) {
-                                          final error = _scaffoldKey
-                                              .currentState!
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              duration: Duration(
-                                                seconds: 1,
+                                              style: const TextStyle(
+                                                fontSize: 28,
+                                                color: Color(0xff025949),
+                                                fontWeight: FontWeight.w700,
                                               ),
-                                              content: Text(
-                                                  "Height can't be negative"),
-                                            ),
-                                          );
-                                          return error as String;
-                                        } else if (double.parse(val) == 0) {
-                                          final error = _scaffoldKey
-                                              .currentState!
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              duration: Duration(
-                                                seconds: 1,
+                                              controller: _ageController,
+                                              decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                                errorStyle: TextStyle(
+                                                    color: Colors.red),
                                               ),
-                                              content:
-                                                  Text("Height can't be 0"),
+                                              validator: (val) {
+                                                if (val == "" || val == null) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Age Shall not be Empty"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (val.length > 3) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Please Provide Valid Age"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (int.parse(val)
+                                                    .isNegative) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Age cant be Negative"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (int.parse(val) ==
+                                                    0) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content:
+                                                          Text("Age cant be 0"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                }
+                                              },
                                             ),
-                                          );
-                                          return error as String;
-                                        } else if (double.parse(val) > 300) {
-                                          final error = _scaffoldKey
-                                              .currentState!
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              backgroundColor: Colors.red,
-                                              duration: Duration(
-                                                seconds: 1,
+                                            const Divider(
+                                              thickness: 1.5,
+                                              color: Color(0xff025949),
+                                            )
+                                          ],
+                                        ),
+                                        Wrap(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0xff025949),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  minusAge();
+                                                },
+                                                icon: const Icon(
+                                                  FontAwesomeIcons.minus,
+                                                  size: 15,
+                                                ),
                                               ),
-                                              content: Text(
-                                                  "Please Provide Valid Height"),
                                             ),
-                                          );
-                                          return error as String;
-                                        }
-                                      },
+                                            const SizedBox(
+                                              width: 35,
+                                            ),
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0xff025949),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  addAge();
+                                                },
+                                                icon: const Icon(Icons.add),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              ),
+                              GridTile(
+                                child: Container(
+                                  height: size.height / 4.8,
+                                  width: size.width / 2.6,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(.5),
+                                        blurRadius: 62.0, // soften the shadow
+                                        //extend the shadow
+                                      )
+                                    ],
+                                  ),
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 5),
+                                  child: Card(
+                                    color: Theme.of(context).primaryColor,
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0)),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const Text(
+                                          "Weight (In Kg)",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Color(0xff025949),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            TextFormField(
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              style: const TextStyle(
+                                                fontSize: 28,
+                                                color: Color(0xff025949),
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              controller: _weightController,
+                                              decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                                errorStyle: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                              validator: (val) {
+                                                if (val == "" || val == null) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                        "Weight Shall not be Empty",
+                                                      ),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (double.parse(val) >=
+                                                    250) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Please Provide Valid Weight"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (double.parse(val)
+                                                    .isNegative) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Weight cant be Negative"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                } else if (double.parse(val) ==
+                                                    0) {
+                                                  final error = _scaffoldKey
+                                                      .currentState!
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      duration: Duration(
+                                                        seconds: 1,
+                                                      ),
+                                                      content: Text(
+                                                          "Weight cant be 0"),
+                                                    ),
+                                                  );
+                                                  return error as String;
+                                                }
+                                              },
+                                            ),
+                                            const Divider(
+                                              thickness: 1.5,
+                                              color: Color(0xff025949),
+                                            )
+                                          ],
+                                        ),
+                                        Wrap(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0xff025949),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  minusWeight();
+                                                },
+                                                icon: const Icon(
+                                                  FontAwesomeIcons.minus,
+                                                  size: 15,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 35,
+                                            ),
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0xff025949),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  addWeight();
+                                                },
+                                                icon: const Icon(Icons.add),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(
-                          width: 25,
-                        ),
-                        Column(
-                          children: [
-                            GridTile(
-                              child: Container(
-                                height: size.height / 4.8,
-                                width: size.width / 2.6,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(.5),
-                                      blurRadius: 52.0, // soften the shadow
-                                    )
-                                  ],
-                                ),
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 2),
-                                child: Card(
-                                  color: Theme.of(context).primaryColor,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(25.0)),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Text(
-                                        "Age (In Year)",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Color(0xff025949),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          TextFormField(
-                                            textAlign: TextAlign.center,
-                                            keyboardType: const TextInputType
-                                                .numberWithOptions(
-                                              signed: false,
-                                              decimal: false,
-                                            ),
-                                            style: const TextStyle(
-                                              fontSize: 28,
-                                              color: Color(0xff025949),
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                            controller: _ageController,
-                                            decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                              errorStyle:
-                                                  TextStyle(color: Colors.red),
-                                            ),
-                                            validator: (val) {
-                                              if (val == "" || val == null) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Age Shall not be Empty"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (val.length > 3) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Please Provide Valid Age"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (int.parse(val)
-                                                  .isNegative) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Age cant be Negative"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (int.parse(val) == 0) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content:
-                                                        Text("Age cant be 0"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              }
-                                            },
-                                          ),
-                                          const Divider(
-                                            thickness: 1.5,
-                                            color: Color(0xff025949),
-                                          )
-                                        ],
-                                      ),
-                                      Wrap(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor:
-                                                const Color(0xff025949),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                minusAge();
-                                              },
-                                              icon: const Icon(
-                                                FontAwesomeIcons.minus,
-                                                size: 15,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 35,
-                                          ),
-                                          CircleAvatar(
-                                            backgroundColor:
-                                                const Color(0xff025949),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                addAge();
-                                              },
-                                              icon: const Icon(Icons.add),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GridTile(
-                              child: Container(
-                                height: size.height / 4.8,
-                                width: size.width / 2.6,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(.5),
-                                      blurRadius: 62.0, // soften the shadow
-                                      //extend the shadow
-                                    )
-                                  ],
-                                ),
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: Card(
-                                  color: Theme.of(context).primaryColor,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(25.0)),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Text(
-                                        "Weight (In Kg)",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Color(0xff025949),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          TextFormField(
-                                            textAlign: TextAlign.center,
-                                            keyboardType: TextInputType.number,
-                                            style: const TextStyle(
-                                              fontSize: 28,
-                                              color: Color(0xff025949),
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                            controller: _weightController,
-                                            decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                              errorStyle:
-                                                  TextStyle(color: Colors.red),
-                                            ),
-                                            validator: (val) {
-                                              if (val == "" || val == null) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                      "Weight Shall not be Empty",
-                                                    ),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (double.parse(val) >=
-                                                  250) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Please Provide Valid Weight"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (double.parse(val)
-                                                  .isNegative) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Weight cant be Negative"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              } else if (double.parse(val) ==
-                                                  0) {
-                                                final error = _scaffoldKey
-                                                    .currentState!
-                                                    .showSnackBar(
-                                                  const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    duration: Duration(
-                                                      seconds: 1,
-                                                    ),
-                                                    content: Text(
-                                                        "Weight cant be 0"),
-                                                  ),
-                                                );
-                                                return error as String;
-                                              }
-                                            },
-                                          ),
-                                          const Divider(
-                                            thickness: 1.5,
-                                            color: Color(0xff025949),
-                                          )
-                                        ],
-                                      ),
-                                      Wrap(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor:
-                                                const Color(0xff025949),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                minusWeight();
-                                              },
-                                              icon: const Icon(
-                                                FontAwesomeIcons.minus,
-                                                size: 15,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 35,
-                                          ),
-                                          CircleAvatar(
-                                            backgroundColor:
-                                                const Color(0xff025949),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                addWeight();
-                                              },
-                                              icon: const Icon(Icons.add),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
