@@ -269,7 +269,7 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 5),
+                            horizontal: 55, vertical: 10),
                         child: const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -285,7 +285,7 @@ class _BmiPageState extends State<BmiPage> {
                         children: [
                           Container(
                             height: size.height / 12,
-                            width: size.width / 2.3,
+                            width: size.width / 2.5,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -310,32 +310,36 @@ class _BmiPageState extends State<BmiPage> {
                                     female_tapped = false;
                                   });
                                 },
-                                title: Align(
-                                  alignment: const Alignment(-1.5, -0.2),
-                                  child: Text(
-                                    "Male",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                title: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.male,
+                                      size: 30,
                                       color: male_tapped
                                           ? Colors.white
                                           : const Color(0xff025949),
                                     ),
-                                  ),
-                                ),
-                                leading: Icon(
-                                  Icons.male,
-                                  size: 30,
-                                  color: male_tapped
-                                      ? Colors.white
-                                      : const Color(0xff025949),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "Male",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: male_tapped
+                                            ? Colors.white
+                                            : const Color(0xff025949),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
                           Container(
                             height: size.height / 12,
-                            width: size.width / 2.3,
+                            width: size.width / 2.5,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -356,25 +360,29 @@ class _BmiPageState extends State<BmiPage> {
                                 side: BorderSide.none,
                               ),
                               child: ListTile(
-                                title: Align(
-                                  alignment: const Alignment(-1.9, -0.2),
-                                  child: Text(
-                                    "Female",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                title: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.female,
+                                      size: 30,
                                       color: female_tapped
                                           ? Colors.white
                                           : const Color(0xff025949),
                                     ),
-                                  ),
-                                ),
-                                leading: Icon(
-                                  Icons.female,
-                                  size: 30,
-                                  color: female_tapped
-                                      ? Colors.white
-                                      : const Color(0xff025949),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Female",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: female_tapped
+                                            ? Colors.white
+                                            : const Color(0xff025949),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 onTap: () {
                                   setState(() {
@@ -388,12 +396,12 @@ class _BmiPageState extends State<BmiPage> {
                         ],
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       Wrap(
                         children: [
                           Container(
-                            height: size.height / 2.3,
+                            height: size.height / 2.1,
                             width: size.width / 3.6,
                             decoration: BoxDecoration(
                               boxShadow: [
@@ -412,7 +420,7 @@ class _BmiPageState extends State<BmiPage> {
                               child: Column(
                                 children: [
                                   const SizedBox(
-                                    height: 10,
+                                    height: 15,
                                   ),
                                   const Text(
                                     "Height(cm)",
@@ -561,7 +569,7 @@ class _BmiPageState extends State<BmiPage> {
                             children: [
                               GridTile(
                                 child: Container(
-                                  height: size.height / 4.8,
+                                  height: size.height / 4.6,
                                   width: size.width / 2.6,
                                   decoration: BoxDecoration(
                                     boxShadow: [
@@ -586,7 +594,7 @@ class _BmiPageState extends State<BmiPage> {
                                         const Text(
                                           "Age (In Year)",
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             color: Color(0xff025949),
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -718,9 +726,12 @@ class _BmiPageState extends State<BmiPage> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               GridTile(
                                 child: Container(
-                                  height: size.height / 4.8,
+                                  height: size.height / 4.6,
                                   width: size.width / 2.6,
                                   decoration: BoxDecoration(
                                     boxShadow: [
@@ -746,7 +757,7 @@ class _BmiPageState extends State<BmiPage> {
                                         const Text(
                                           "Weight (In Kg)",
                                           style: TextStyle(
-                                            fontSize: 18,
+                                            fontSize: 16,
                                             color: Color(0xff025949),
                                             fontWeight: FontWeight.w500,
                                           ),

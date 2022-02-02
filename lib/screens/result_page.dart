@@ -102,6 +102,7 @@ class ResultPage extends StatelessWidget {
                           ),
                           Text(
                             result,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w400,
@@ -145,7 +146,7 @@ class ResultPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
                     primary: const Color(0xff025949),
-                    fixedSize: const Size(250, 40),
+                    fixedSize: const Size(300, 55),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),

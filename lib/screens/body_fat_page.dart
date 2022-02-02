@@ -236,7 +236,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         const SizedBox(height: 20),
                         const Align(
                           alignment: Alignment.centerLeft,
-                          widthFactor: 7,
+                          widthFactor: 5.2,
                           child: Text(
                             "Gender",
                             style: TextStyle(
@@ -252,7 +252,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                           children: [
                             Container(
                               height: size.height / 12,
-                              width: size.width / 2.3,
+                              width: size.width / 2.5,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -277,32 +277,36 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                       female_tapped = false;
                                     });
                                   },
-                                  title: Align(
-                                    alignment: const Alignment(-1.5, -0.2),
-                                    child: Text(
-                                      "Male",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16,
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.male,
+                                        size: 30,
                                         color: male_tapped
                                             ? Colors.white
                                             : const Color(0xff025949),
                                       ),
-                                    ),
-                                  ),
-                                  leading: Icon(
-                                    Icons.male,
-                                    size: 30,
-                                    color: male_tapped
-                                        ? Colors.white
-                                        : const Color(0xff025949),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Male",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: male_tapped
+                                              ? Colors.white
+                                              : const Color(0xff025949),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
                             Container(
                               height: size.height / 12,
-                              width: size.width / 2.3,
+                              width: size.width / 2.5,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -323,25 +327,29 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                   side: BorderSide.none,
                                 ),
                                 child: ListTile(
-                                  title: Align(
-                                    alignment: const Alignment(-1.9, -0.2),
-                                    child: Text(
-                                      "Female",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16,
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.female,
+                                        size: 30,
                                         color: female_tapped
                                             ? Colors.white
                                             : const Color(0xff025949),
                                       ),
-                                    ),
-                                  ),
-                                  leading: Icon(
-                                    Icons.female,
-                                    size: 30,
-                                    color: female_tapped
-                                        ? Colors.white
-                                        : const Color(0xff025949),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "Female",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: female_tapped
+                                              ? Colors.white
+                                              : const Color(0xff025949),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   onTap: () {
                                     setState(() {
@@ -359,7 +367,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         ),
                         GridTile(
                           child: Container(
-                            height: size.height / 4.8,
+                            height: size.height / 4.5,
                             width: size.width / 2.3,
                             margin: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 2),
@@ -383,7 +391,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                   const Text(
                                     "Age (In Year)",
                                     style: TextStyle(
-                                        fontSize: 18, color: Color(0xff025949)),
+                                        fontSize: 16, color: Color(0xff025949)),
                                   ),
                                   Column(
                                     children: [
@@ -508,7 +516,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                         ),
                         GridTile(
                           child: Container(
-                            height: size.height / 4.8,
+                            height: size.height / 4.5,
                             width: size.width / 2.3,
                             decoration: BoxDecoration(
                               boxShadow: [
@@ -532,7 +540,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                   const Text(
                                     "Body Mass Index",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       color: Color(0xff025949),
                                     ),
                                   ),

@@ -184,7 +184,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 15,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
