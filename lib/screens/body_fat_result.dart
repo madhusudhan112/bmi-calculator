@@ -103,11 +103,12 @@ class BodyFatResultPage extends StatelessWidget {
                           ),
                           Text(
                             result,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -146,7 +147,7 @@ class BodyFatResultPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     elevation: 4,
                     primary: const Color(0xff025949),
-                    fixedSize: const Size(250, 40),
+                    fixedSize: const Size(221, 60),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
