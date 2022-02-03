@@ -100,34 +100,14 @@ class _BodyFatResultPageState extends State<BodyFatResultPage> {
                             child: CircleAvatar(
                               backgroundColor: const Color(0xff025949),
                               radius: 70,
-                              child: widget.score > 100
-                                  ? const Text(
-                                      "Error",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : widget.score.isNegative
-                                      ? const Text(
-                                          "Error",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      : Text(
-                                          widget.score.toStringAsFixed(2),
-                                          style: const TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                              child: Text(
+                                widget.score.toStringAsFixed(2),
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(

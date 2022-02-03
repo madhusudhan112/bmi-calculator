@@ -20,7 +20,7 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   @override
   void initState() {
-    if (double.parse(widget.score) > 80) {
+    if (double.parse(widget.score) > 55) {
       BotToast.showText(
         text: "It appeats your result is not valid",
         contentColor: Colors.red.shade500,
@@ -101,32 +101,14 @@ class _ResultPageState extends State<ResultPage> {
                             child: CircleAvatar(
                               backgroundColor: const Color(0xff025949),
                               radius: 70,
-                              child: bmiscore > 60
-                                  ? const Text(
-                                      "Error",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    )
-                                  : bmiscore.isNegative
-                                      ? const Text(
-                                          "Error",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        )
-                                      : Text(
-                                          bmiscore.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
+                              child: Text(
+                                bmiscore.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(
