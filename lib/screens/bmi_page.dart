@@ -191,7 +191,7 @@ class _BmiPageState extends State<BmiPage> {
                                 },
                               ),
                             );
-                          } else if (double.parse(bmi) > 80) {
+                          } else if (double.parse(bmi) > 55) {
                             Navigator.of(context).push(
                               PageRouteBuilder(
                                 transitionDuration: const Duration(seconds: 1),

@@ -184,6 +184,10 @@ class _DashboardState extends State<Dashboard> {
                                     Animation<double> animation,
                                     Animation<double> secAnimation,
                                     Widget child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.easeIn,
+                                  );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
                                     scale: animation,
@@ -223,6 +227,10 @@ class _DashboardState extends State<Dashboard> {
                             PageRouteBuilder(
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
+                                animation = CurvedAnimation(
+                                  parent: animation,
+                                  curve: Curves.easeIn,
+                                );
                                 return ScaleTransition(
                                   alignment: Alignment.center,
                                   scale: animation,
