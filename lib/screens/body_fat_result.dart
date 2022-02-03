@@ -128,13 +128,10 @@ class BodyFatResultPage extends StatelessWidget {
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Center(
-                          child: Text(
-                            result2,
-                            textAlign: TextAlign.center,
-                          ),
+                      title: Center(
+                        child: Text(
+                          result2,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
