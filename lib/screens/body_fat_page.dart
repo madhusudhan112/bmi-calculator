@@ -164,115 +164,30 @@ class _BodyFatPageState extends State<BodyFatPage> {
                             bmi: double.parse(_bmiController.text),
                           );
                           var bf = calc.bfcalulator();
-                          print(bf);
+
                           if (bf.isNegative) {
-                            print("Bf cant be NEgative");
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return BodyFatResultPage(
-                                    score: calc.bfcalulator(),
-                                    result: calc.result(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result are not valid, Try again..",
+                              contentColor: Colors.red.shade500,
                             );
-                          } else if (bf <= 2) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return BodyFatResultPage(
-                                    score: calc.bfcalulator(),
-                                    result: calc.result(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                          } else if (bf <= 1.9) {
+                            BotToast.showText(
+                              text:
+                                  "It appears your result are not valid, Try again..",
+                              contentColor: Colors.red.shade500,
                             );
                           } else if (bf <= 0) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return BodyFatResultPage(
-                                    score: calc.bfcalulator(),
-                                    result: calc.result(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result are not valid, Try again..",
+                              contentColor: Colors.red.shade500,
                             );
                           } else if (bf >= 80) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return BodyFatResultPage(
-                                    score: calc.bfcalulator(),
-                                    result: calc.result(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result are not valid, Try again..",
+                              contentColor: Colors.red.shade500,
                             );
                           } else {
                             addBf(bf.toString());
