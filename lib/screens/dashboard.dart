@@ -17,12 +17,16 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final _scafoldKey = GlobalKey<ScaffoldState>();
 
-  final _refreshKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final bmibox = Boxes.getBmi();
     final bfbox = Boxes.getBf();
+
+    Future _pagerefresh() async {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => widget),
+      );
+    }
 
     final size = MediaQuery.of(context).size;
 
@@ -31,7 +35,6 @@ class _DashboardState extends State<Dashboard> {
         key: _scafoldKey,
         backgroundColor: Theme.of(context).primaryColor,
         body: RefreshIndicator(
-          key: _refreshKey,
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
@@ -262,13 +265,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
-          onRefresh: () {
-            return Future.delayed(const Duration(seconds: 2), () {
-              setState(() {
-                Navigator.of(context).popAndPushNamed("/");
-              });
-            });
-          },
+          onRefresh: () => _pagerefresh(),
         ),
       ),
     );

@@ -22,22 +22,22 @@ class _ResultPageState extends State<ResultPage> {
   void initState() {
     if (double.parse(widget.score) > 55) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (double.parse(widget.score) < 8) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (double.parse(widget.score) <= 0) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (double.parse(widget.score).isNegative) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     }

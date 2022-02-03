@@ -22,22 +22,22 @@ class _BodyFatResultPageState extends State<BodyFatResultPage> {
   void initState() {
     if (widget.score > 80) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (widget.score < 2) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (widget.score <= 0) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     } else if (widget.score.isNegative) {
       BotToast.showText(
-        text: "It appeats your result is not valid",
+        text: "It appears your result is not valid",
         contentColor: Colors.red.shade500,
       );
     }

@@ -174,7 +174,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -201,7 +201,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -228,7 +228,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -255,7 +255,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -283,7 +283,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -321,11 +321,11 @@ class _BodyFatPageState extends State<BodyFatPage> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 25.0, vertical: 10),
+                              horizontal: 25.0, vertical: 5),
                           child: Text(
                               "Body Fat Calculator helps you to find out your body fat percentage, your body type and the number of calories you have to burn, to lose 1% of your body fat. Use the tool below to compute yours"),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 15),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 25),
                           child: Align(
@@ -517,6 +517,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                             return BotToast.showText(
                                               text:
                                                   "Please provide a vaild age",
+                                              contentColor: Colors.red.shade500,
                                             ) as String;
                                           } else if (int.parse(val)
                                               .isNegative) {
@@ -527,6 +528,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           } else if (int.parse(val) == 0) {
                                             return BotToast.showText(
                                               text: "Age can't be 0",
+                                              contentColor: Colors.red.shade500,
                                             ) as String;
                                           }
                                         },
@@ -629,6 +631,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                             return BotToast.showText(
                                               text:
                                                   "Please provide a vaild Bmi",
+                                              contentColor: Colors.red.shade500,
                                             ) as String;
                                           } else if (double.parse(val)
                                               .isNegative) {
@@ -639,6 +642,7 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                           } else if (double.parse(val) == 0) {
                                             return BotToast.showText(
                                               text: "Bmi can't be 0",
+                                              contentColor: Colors.red.shade500,
                                             ) as String;
                                           }
                                         },

@@ -199,7 +199,7 @@ class _BmiPageState extends State<BmiPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -226,7 +226,7 @@ class _BmiPageState extends State<BmiPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -253,7 +253,7 @@ class _BmiPageState extends State<BmiPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -281,7 +281,7 @@ class _BmiPageState extends State<BmiPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -309,7 +309,7 @@ class _BmiPageState extends State<BmiPage> {
                                     secondaryAnimation, child) {
                                   animation = CurvedAnimation(
                                     parent: animation,
-                                    curve: Curves.bounceInOut,
+                                    curve: Curves.easeInOutCubicEmphasized,
                                   );
                                   return ScaleTransition(
                                     alignment: Alignment.center,
@@ -360,7 +360,7 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 35, vertical: 10),
+                            horizontal: 35, vertical: 5),
                         child: const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -689,6 +689,8 @@ class _BmiPageState extends State<BmiPage> {
                                                   return BotToast.showText(
                                                     text:
                                                         "Please provide a vaild age",
+                                                    contentColor:
+                                                        Colors.red.shade500,
                                                   ) as String;
                                                 } else if (int.parse(val)
                                                     .isNegative) {
@@ -702,6 +704,8 @@ class _BmiPageState extends State<BmiPage> {
                                                     0) {
                                                   return BotToast.showText(
                                                     text: "Age can't be 0",
+                                                    contentColor:
+                                                        Colors.red.shade500,
                                                   ) as String;
                                                 }
                                               },
@@ -881,9 +885,6 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                       const SizedBox(
                         height: 10,
-                      ),
-                      const SizedBox(
-                        height: 20,
                       ),
                     ],
                   ),
