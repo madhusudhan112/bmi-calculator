@@ -170,135 +170,35 @@ class _BmiPageState extends State<BmiPage> {
                           );
                           var bmi = calc.bmi_calculator();
                           if (double.parse(bmi).isNegative) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) =>
-                                    ScaleTransition(
-                                  alignment: Alignment.center,
-                                  scale: animation,
-                                  child: child,
-                                ),
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return ResultPage(
-                                    score: calc.bmi_calculator(),
-                                    result: calc.result1(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result is not valid, Try Again...",
+                              contentColor: Colors.red.shade500,
                             );
-                          } else if (double.parse(bmi) > 55) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return ResultPage(
-                                    score: calc.bmi_calculator(),
-                                    result: calc.result1(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                          } else if (double.parse(bmi) > 65) {
+                            BotToast.showText(
+                              text:
+                                  "It appears your result is not valid, Try Again...",
+                              contentColor: Colors.red.shade500,
                             );
                           } else if (double.parse(bmi) < 8) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return ResultPage(
-                                    score: calc.bmi_calculator(),
-                                    result: calc.result1(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result is not valid, Try Again...",
+                              contentColor: Colors.red.shade500,
                             );
                           } else if (double.parse(bmi) == 0.0) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return ResultPage(
-                                    score: calc.bmi_calculator(),
-                                    result: calc.result1(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result is not valid, Try Again...",
+                              contentColor: Colors.red.shade500,
                             );
                           } else if (double.parse(bmi) == 0.9 ||
                               double.parse(bmi) < 0.9) {
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                transitionDuration: const Duration(seconds: 1),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOutCubicEmphasized,
-                                  );
-                                  return ScaleTransition(
-                                    alignment: Alignment.center,
-                                    scale: animation,
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder: (context,
-                                    Animation<double> animation,
-                                    Animation<double> secAnimation) {
-                                  return ResultPage(
-                                    score: calc.bmi_calculator(),
-                                    result: calc.result1(),
-                                    result2: calc.result2(),
-                                  );
-                                },
-                              ),
+                            BotToast.showText(
+                              text:
+                                  "It appears your result is not valid, Try Again...",
+                              contentColor: Colors.red.shade500,
                             );
                           } else {
                             addBmi(bmi);
@@ -330,16 +230,6 @@ class _BmiPageState extends State<BmiPage> {
                             );
                           }
                         }
-                        //   Navigator.of(context).push(
-                        //     MaterialPageRoute(
-                        //       builder: (_) => ResultPage(
-                        //         score: calc.bmi_calculator(),
-                        //         result: calc.result1(),
-                        //         result2: calc.result2(),
-                        //       ),
-                        //     ),
-                        //   );
-                        // }
                       },
                     ),
                   ),
@@ -685,6 +575,14 @@ class _BmiPageState extends State<BmiPage> {
                                                     contentColor:
                                                         Colors.red.shade500,
                                                   ) as String;
+                                                } else if (int.parse(val) >
+                                                    200) {
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Please provide a vaild age",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (val.length > 3) {
                                                   return BotToast.showText(
                                                     text:
@@ -805,37 +703,37 @@ class _BmiPageState extends State<BmiPage> {
                                                     color: Colors.red),
                                               ),
                                               validator: (val) {
-                                                if (val == "" || val == null) {
-                                                  return BotToast.showText(
-                                                    text:
-                                                        "Weight shall not be empty",
-                                                    contentColor:
-                                                        Colors.red.shade500,
-                                                  ) as String;
-                                                } else if (double.parse(val) >=
-                                                    250) {
-                                                  return BotToast.showText(
-                                                    text:
-                                                        "Please provide a vaild weight",
-                                                    contentColor:
-                                                        Colors.red.shade500,
-                                                  ) as String;
-                                                } else if (double.parse(val)
-                                                    .isNegative) {
-                                                  return BotToast.showText(
-                                                    text:
-                                                        "Weight can't be negative",
-                                                    contentColor:
-                                                        Colors.red.shade500,
-                                                  ) as String;
-                                                } else if (double.parse(val) ==
-                                                    0) {
-                                                  return BotToast.showText(
-                                                    text: "Weight can't be 0",
-                                                    contentColor:
-                                                        Colors.red.shade500,
-                                                  ) as String;
-                                                }
+                                                // if (val == "" || val == null) {
+                                                //   return BotToast.showText(
+                                                //     text:
+                                                //         "Weight shall not be empty",
+                                                //     contentColor:
+                                                //         Colors.red.shade500,
+                                                //   ) as String;
+                                                // } else if (double.parse(val) >=
+                                                //     199) {
+                                                //   return BotToast.showText(
+                                                //     text:
+                                                //         "Please provide a vaild weight",
+                                                //     contentColor:
+                                                //         Colors.red.shade500,
+                                                //   ) as String;
+                                                // } else if (double.parse(val)
+                                                //     .isNegative) {
+                                                //   return BotToast.showText(
+                                                //     text:
+                                                //         "Weight can't be negative",
+                                                //     contentColor:
+                                                //         Colors.red.shade500,
+                                                //   ) as String;
+                                                // } else if (double.parse(val) ==
+                                                //     0) {
+                                                //   return BotToast.showText(
+                                                //     text: "Weight can't be 0",
+                                                //     contentColor:
+                                                //         Colors.red.shade500,
+                                                //   ) as String;
+                                                // }
                                               },
                                             ),
                                             const Divider(
