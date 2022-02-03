@@ -221,8 +221,6 @@ class _DashboardState extends State<Dashboard> {
                         onPressed: () {
                           Navigator.of(context).push(
                             PageRouteBuilder(
-                              transitionDuration:
-                                  Duration(microseconds: (0 * 1000).toInt()),
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
                                 return ScaleTransition(

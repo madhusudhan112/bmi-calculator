@@ -193,8 +193,34 @@ class _BodyFatPageState extends State<BodyFatPage> {
                                 },
                               ),
                             );
+                          } else if (bf <= 2) {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return BodyFatResultPage(
+                                    score: calc.bfcalulator(),
+                                    result: calc.result(),
+                                    result2: calc.result2(),
+                                  );
+                                },
+                              ),
+                            );
                           } else if (bf <= 0) {
-                            print("body fat cant be 0");
                             Navigator.of(context).push(
                               PageRouteBuilder(
                                 transitionDuration: const Duration(seconds: 1),
