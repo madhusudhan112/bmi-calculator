@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../calculator/calculator.dart';
 import '../screens/result_page.dart';
 import 'package:flutter/material.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 class BmiPage extends StatefulWidget {
   static const routeName = "bmi-page";
@@ -155,11 +156,9 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                       onPressed: () {
                         if (male_tapped == false && female_tapped == false) {
-                          _scaffoldKey.currentState!.showSnackBar(
-                            const SnackBar(
-                              backgroundColor: Colors.red,
-                              content: Text("Please Select Your Gender"),
-                            ),
+                          BotToast.showText(
+                            text: "Please Select a Gender",
+                            contentColor: Colors.red.shade500,
                           );
                         } else if (_formKey.currentState!.validate()) {
                           weight = double.parse(_weightController.text);
@@ -171,70 +170,162 @@ class _BmiPageState extends State<BmiPage> {
                           );
                           var bmi = calc.bmi_calculator();
                           if (double.parse(bmi).isNegative) {
-                            print("Bmi cant be negative");
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) =>
+                                    ScaleTransition(
+                                  alignment: Alignment.center,
+                                  scale: animation,
+                                  child: child,
                                 ),
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           } else if (double.parse(bmi) > 80) {
-                            print("You Migh have given invalid values");
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
-                                ),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           } else if (double.parse(bmi) < 5) {
-                            print("You Migh have given invalid values");
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
-                                ),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           } else if (double.parse(bmi) == 0.0) {
-                            print("Bmi cant be 0 ");
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
-                                ),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           } else if (double.parse(bmi) == 0.9 ||
                               double.parse(bmi) < 0.9) {
-                            print("You Migh have given invalid values");
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
-                                ),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           } else {
                             addBmi(bmi);
                             Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => ResultPage(
-                                  score: calc.bmi_calculator(),
-                                  result: calc.result1(),
-                                  result2: calc.result2(),
-                                ),
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(seconds: 1),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  animation = CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceInOut,
+                                  );
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation) {
+                                  return ResultPage(
+                                    score: calc.bmi_calculator(),
+                                    result: calc.result1(),
+                                    result2: calc.result2(),
+                                  );
+                                },
                               ),
                             );
                           }
@@ -260,7 +351,7 @@ class _BmiPageState extends State<BmiPage> {
                   child: Column(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        padding: EdgeInsets.symmetric(horizontal: 35.0),
                         child: Text(
                             "Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. Use the tool below to compute yours"),
                       ),
@@ -269,7 +360,7 @@ class _BmiPageState extends State<BmiPage> {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 55, vertical: 10),
+                            horizontal: 35, vertical: 10),
                         child: const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -295,7 +386,7 @@ class _BmiPageState extends State<BmiPage> {
                               ],
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 3),
+                                horizontal: 2, vertical: 3),
                             child: Card(
                               color: male_tapped
                                   ? const Color(0xff025949)
@@ -311,6 +402,7 @@ class _BmiPageState extends State<BmiPage> {
                                   });
                                 },
                                 title: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Icon(
                                       Icons.male,
@@ -349,7 +441,7 @@ class _BmiPageState extends State<BmiPage> {
                               ],
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 3),
+                                horizontal: 2, vertical: 3),
                             child: Card(
                               color: female_tapped
                                   ? const Color(0xff025949)
@@ -408,7 +500,7 @@ class _BmiPageState extends State<BmiPage> {
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(.5),
                                   blurRadius: 52.0, // soften the shadow
-                                )
+                                ),
                               ],
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -497,62 +589,28 @@ class _BmiPageState extends State<BmiPage> {
                                         ),
                                         validator: (val) {
                                           if (val == "" || val == null) {
-                                            final error = _scaffoldKey
-                                                .currentState!
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                duration: Duration(
-                                                  seconds: 1,
-                                                ),
-                                                content: Text(
-                                                    "Height shall not be empty"),
-                                              ),
-                                            );
-                                            return error as String;
+                                            return BotToast.showText(
+                                              text: "Height shall not be empty",
+                                              contentColor: Colors.red.shade500,
+                                            ) as String;
                                           } else if (double.parse(val)
                                               .isNegative) {
-                                            final error = _scaffoldKey
-                                                .currentState!
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                duration: Duration(
-                                                  seconds: 1,
-                                                ),
-                                                content: Text(
-                                                    "Height can't be negative"),
-                                              ),
-                                            );
-                                            return error as String;
+                                            return BotToast.showText(
+                                                text:
+                                                    "Height can't be Negative",
+                                                contentColor: Colors
+                                                    .red.shade500) as String;
                                           } else if (double.parse(val) == 0) {
-                                            final error = _scaffoldKey
-                                                .currentState!
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                duration: Duration(
-                                                  seconds: 1,
-                                                ),
-                                                content:
-                                                    Text("Height can't be 0"),
-                                              ),
-                                            );
-                                            return error as String;
+                                            return BotToast.showText(
+                                                text: "Height can't be 0",
+                                                contentColor: Colors
+                                                    .red.shade500) as String;
                                           } else if (double.parse(val) > 300) {
-                                            final error = _scaffoldKey
-                                                .currentState!
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                duration: Duration(
-                                                  seconds: 1,
-                                                ),
-                                                content: Text(
-                                                    "Please Provide Valid Height"),
-                                              ),
-                                            );
-                                            return error as String;
+                                            return BotToast.showText(
+                                                text:
+                                                    "Please provide a valid height",
+                                                contentColor: Colors
+                                                    .red.shade500) as String;
                                           }
                                         },
                                       ),
@@ -621,67 +679,30 @@ class _BmiPageState extends State<BmiPage> {
                                               ),
                                               validator: (val) {
                                                 if (val == "" || val == null) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Age Shall not be Empty"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Age shall not be empty",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (val.length > 3) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Please Provide Valid Age"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Please provide a vaild age",
+                                                  ) as String;
                                                 } else if (int.parse(val)
                                                     .isNegative) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Age cant be Negative"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Age can't be negative",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (int.parse(val) ==
                                                     0) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content:
-                                                          Text("Age cant be 0"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text: "Age can't be 0",
+                                                  ) as String;
                                                 }
                                               },
                                             ),
@@ -781,69 +802,35 @@ class _BmiPageState extends State<BmiPage> {
                                               ),
                                               validator: (val) {
                                                 if (val == "" || val == null) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                        "Weight Shall not be Empty",
-                                                      ),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Weight shall not be empty",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (double.parse(val) >=
                                                     250) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Please Provide Valid Weight"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Please provide a vaild weight",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (double.parse(val)
                                                     .isNegative) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Weight cant be Negative"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text:
+                                                        "Weight can't be negative",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 } else if (double.parse(val) ==
                                                     0) {
-                                                  final error = _scaffoldKey
-                                                      .currentState!
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      backgroundColor:
-                                                          Colors.red,
-                                                      duration: Duration(
-                                                        seconds: 1,
-                                                      ),
-                                                      content: Text(
-                                                          "Weight cant be 0"),
-                                                    ),
-                                                  );
-                                                  return error as String;
+                                                  return BotToast.showText(
+                                                    text: "Weight can't be 0",
+                                                    contentColor:
+                                                        Colors.red.shade500,
+                                                  ) as String;
                                                 }
                                               },
                                             ),

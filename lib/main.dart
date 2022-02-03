@@ -1,6 +1,7 @@
 import 'package:bmicalculator/models/bf_model/bf_model.dart';
 import 'package:bmicalculator/models/bmi_model/bmi_model.dart';
 import 'package:bmicalculator/screens/bmi_list.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../screens/body_fat_page.dart';
@@ -33,7 +34,9 @@ class BmiCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: BotToastInit(),
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [BotToastNavigatorObserver()],
       title: "Bmi Calculator",
       theme: ThemeData(
         primaryColor: const Color(0xffF2F2F2),

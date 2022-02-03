@@ -164,23 +164,46 @@ class _DashboardState extends State<Dashboard> {
                       const SizedBox(
                         height: 10,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(
-                            0xff025949,
+                      Hero(
+                        tag: "Bmi Page",
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(
+                              0xff025949,
+                            ),
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            fixedSize: const Size(221, 60),
                           ),
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              PageRouteBuilder(
+                                transitionsBuilder: (context,
+                                    Animation<double> animation,
+                                    Animation<double> secAnimation,
+                                    Widget child) {
+                                  return ScaleTransition(
+                                    alignment: Alignment.center,
+                                    scale: animation,
+                                    child: child,
+                                  );
+                                },
+                                pageBuilder: (
+                                  context,
+                                  Animation<double> animation,
+                                  Animation<double> secAnimation,
+                                ) {
+                                  return const BmiPage();
+                                },
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Body Mass Index",
+                            textAlign: TextAlign.center,
                           ),
-                          fixedSize: const Size(221, 60),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(BmiPage.routeName);
-                        },
-                        child: const Text(
-                          "Body Mass Index",
-                          textAlign: TextAlign.center,
                         ),
                       ),
                       const SizedBox(
@@ -196,8 +219,27 @@ class _DashboardState extends State<Dashboard> {
                           fixedSize: const Size(221, 60),
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(BodyFatPage.routeName);
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              transitionDuration:
+                                  Duration(microseconds: (0 * 1000).toInt()),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return ScaleTransition(
+                                  alignment: Alignment.center,
+                                  scale: animation,
+                                  child: child,
+                                );
+                              },
+                              pageBuilder: (
+                                context,
+                                Animation<double> animation,
+                                Animation<double> secAnimation,
+                              ) {
+                                return const BodyFatPage();
+                              },
+                            ),
+                          );
                         },
                         child: const Text(
                           "Body Fat Percentage",
