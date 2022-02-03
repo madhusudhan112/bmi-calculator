@@ -1,6 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
-class BodyFatResultPage extends StatelessWidget {
+class BodyFatResultPage extends StatefulWidget {
   final double score;
   final String result;
   final String result2;
@@ -11,6 +12,37 @@ class BodyFatResultPage extends StatelessWidget {
     required this.result,
     required this.result2,
   }) : super(key: key);
+
+  @override
+  State<BodyFatResultPage> createState() => _BodyFatResultPageState();
+}
+
+class _BodyFatResultPageState extends State<BodyFatResultPage> {
+  @override
+  void initState() {
+    if (widget.score > 80) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (widget.score < 2) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (widget.score <= 0) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (widget.score.isNegative) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +100,7 @@ class BodyFatResultPage extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: const Color(0xff025949),
                               radius: 70,
-                              child: score > 100
+                              child: widget.score > 100
                                   ? const Text(
                                       "Error",
                                       textAlign: TextAlign.center,
@@ -78,7 +110,7 @@ class BodyFatResultPage extends StatelessWidget {
                                         color: Colors.white,
                                       ),
                                     )
-                                  : score.isNegative
+                                  : widget.score.isNegative
                                       ? const Text(
                                           "Error",
                                           textAlign: TextAlign.center,
@@ -89,7 +121,7 @@ class BodyFatResultPage extends StatelessWidget {
                                           ),
                                         )
                                       : Text(
-                                          score.toStringAsFixed(2),
+                                          widget.score.toStringAsFixed(2),
                                           style: const TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.w500,
@@ -102,7 +134,7 @@ class BodyFatResultPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            result,
+                            widget.result,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 18,
@@ -130,7 +162,7 @@ class BodyFatResultPage extends StatelessWidget {
                     child: ListTile(
                       title: Center(
                         child: Text(
-                          result2,
+                          widget.result2,
                           textAlign: TextAlign.center,
                         ),
                       ),

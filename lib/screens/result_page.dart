@@ -1,6 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
-class ResultPage extends StatelessWidget {
+class ResultPage extends StatefulWidget {
   final String score;
   final String result;
   final String result2;
@@ -13,9 +14,40 @@ class ResultPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ResultPage> createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  @override
+  void initState() {
+    if (double.parse(widget.score) > 80) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (double.parse(widget.score) < 8) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (double.parse(widget.score) <= 0) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    } else if (double.parse(widget.score).isNegative) {
+      BotToast.showText(
+        text: "It appeats your result is not valid",
+        contentColor: Colors.red.shade500,
+      );
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    double bmiscore = double.parse(score);
+    double bmiscore = double.parse(widget.score);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -101,7 +133,7 @@ class ResultPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            result,
+                            widget.result,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 20,
@@ -129,7 +161,7 @@ class ResultPage extends StatelessWidget {
                     child: ListTile(
                       title: Center(
                         child: Text(
-                          result2,
+                          widget.result2,
                           textAlign: TextAlign.center,
                         ),
                       ),
